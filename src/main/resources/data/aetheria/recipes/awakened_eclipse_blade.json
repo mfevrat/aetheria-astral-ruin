@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "IHI",
+    "IBI",
+    " I "
+  ],
+  "key": {
+    "H": {
+      "item": "aetheria:rune_heart"
+    },
+    "B": {
+      "item": "aetheria:eclipse_blade"
+    },
+    "I": {
+      "item": "aetheria:astral_ingot"
+    }
+  },
+  "result": {
+    "item": "aetheria:awakened_eclipse_blade",
+    "count": 1
+  }
+}

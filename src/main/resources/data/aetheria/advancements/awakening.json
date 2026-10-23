@@ -1,0 +1,35 @@
+{
+  "parent": "aetheria:root",
+  "display": {
+    "icon": {
+      "item": "aetheria:stele_fragment"
+    },
+    "title": {
+      "translate": "advancements.aetheria.awakening.title"
+    },
+    "description": {
+      "translate": "advancements.aetheria.awakening.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "fragment": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "aetheria:stele_fragment"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "experience": 50
+  }
+}

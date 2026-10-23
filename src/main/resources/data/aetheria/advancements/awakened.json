@@ -1,0 +1,53 @@
+{
+  "parent": "aetheria:guardian_trial",
+  "display": {
+    "icon": {
+      "item": "aetheria:awakened_archmage_staff"
+    },
+    "title": {
+      "translate": "advancements.aetheria.awakened.title"
+    },
+    "description": {
+      "translate": "advancements.aetheria.awakened.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "staff": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "aetheria:awakened_archmage_staff"
+            ]
+          }
+        ]
+      }
+    },
+    "blade": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "aetheria:awakened_eclipse_blade"
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "staff",
+      "blade"
+    ]
+  ],
+  "rewards": {
+    "experience": 300
+  }
+}

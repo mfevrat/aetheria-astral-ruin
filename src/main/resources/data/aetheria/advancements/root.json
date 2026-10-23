@@ -1,0 +1,32 @@
+{
+  "display": {
+    "icon": {
+      "item": "aetheria:astral_shard"
+    },
+    "title": {
+      "translate": "advancements.aetheria.root.title"
+    },
+    "description": {
+      "translate": "advancements.aetheria.root.description"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false,
+    "hidden": false,
+    "background": "minecraft:textures/block/purpur_block.png"
+  },
+  "criteria": {
+    "amethyst": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:amethyst_shard"
+            ]
+          }
+        ]
+      }
+    }
+  }
+}

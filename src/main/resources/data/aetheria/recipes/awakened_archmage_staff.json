@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    "IHI",
+    "ISI",
+    " I "
+  ],
+  "key": {
+    "H": {
+      "item": "aetheria:rune_heart"
+    },
+    "S": {
+      "item": "aetheria:archmage_staff"
+    },
+    "I": {
+      "item": "aetheria:astral_ingot"
+    }
+  },
+  "result": {
+    "item": "aetheria:awakened_archmage_staff",
+    "count": 1
+  }
+}

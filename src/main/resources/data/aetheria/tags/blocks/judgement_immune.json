@@ -1,0 +1,13 @@
+{
+  "replace": false,
+  "values": [
+    "aetheria:astral_altar",
+    "minecraft:chest",
+    "minecraft:spawner",
+    "minecraft:end_portal_frame",
+    {
+      "id": "#minecraft:beds",
+      "required": false
+    }
+  ]
+}

@@ -1,0 +1,85 @@
+{
+  "attributes": {
+    "max_health": 600,
+    "armor": 12,
+    "armor_toughness": 4,
+    "movement_speed": 0.28
+  },
+  "phase_2_threshold": 0.5,
+  "transition": {
+    "duration": 100,
+    "push_radius": 8
+  },
+  "orbs": {
+    "thresholds": [
+      0.4,
+      0.2
+    ],
+    "health": 40,
+    "heal_per_second": 2,
+    "deadline": 600
+  },
+  "attacks": {
+    "sword_combo": {
+      "weight": 5,
+      "range": [
+        0,
+        4.5
+      ],
+      "cooldown": 80,
+      "telegraph": 10,
+      "damage": 14,
+      "count": 3,
+      "duration": 20
+    },
+    "rune_trap": {
+      "weight": 3,
+      "range": [
+        3,
+        20
+      ],
+      "cooldown": 160,
+      "telegraph": 10,
+      "damage": 12,
+      "radius": 2.5,
+      "count": 3,
+      "duration": 30
+    },
+    "eclipse_charge": {
+      "weight": 2,
+      "range": [
+        6,
+        16
+      ],
+      "cooldown": 240,
+      "telegraph": 15,
+      "damage": 16,
+      "duration": 12
+    },
+    "meteors": {
+      "weight": 4,
+      "range": [
+        0,
+        30
+      ],
+      "cooldown": 200,
+      "telegraph": 10,
+      "damage": 10,
+      "radius": 2,
+      "count": 8,
+      "duration": 40
+    },
+    "energy_beam": {
+      "weight": 3,
+      "range": [
+        3,
+        30
+      ],
+      "cooldown": 300,
+      "telegraph": 25,
+      "damage": 4,
+      "duration": 80,
+      "turn_speed": 2.0
+    }
+  }
+}

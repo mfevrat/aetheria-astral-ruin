@@ -1,0 +1,44 @@
+{
+ "format_version": "1.8.0",
+ "animations": {
+  "animation.aetheria.idle": {
+   "loop": true,
+   "animation_length": 4.0,
+   "bones": {
+    "piece": {
+     "rotation": {
+      "0.0": [
+       0,
+       -15,
+       0
+      ],
+      "2.0": [
+       0,
+       15,
+       0
+      ],
+      "4.0": [
+       0,
+       -15,
+       0
+      ]
+     }
+    },
+    "orbit": {
+     "rotation": {
+      "0.0": [
+       0,
+       0,
+       0
+      ],
+      "4.0": [
+       0,
+       360,
+       0
+      ]
+     }
+    }
+   }
+  }
+ }
+}

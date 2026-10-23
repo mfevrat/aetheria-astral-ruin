@@ -1,0 +1,11 @@
+{
+  "x": -220,
+  "y": 90,
+  "cost": 2,
+  "requires": [
+    "eclipse_hunger"
+  ],
+  "bonus": "none",
+  "amount": 0,
+  "spell": "eclipse_step"
+}

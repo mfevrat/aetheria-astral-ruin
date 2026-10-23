@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    " E ",
+    "IFI",
+    " E "
+  ],
+  "key": {
+    "E": {
+      "item": "minecraft:ender_eye"
+    },
+    "I": {
+      "item": "aetheria:astral_ingot"
+    },
+    "F": {
+      "item": "aetheria:stele_fragment"
+    }
+  },
+  "result": {
+    "item": "aetheria:astral_sigil",
+    "count": 1
+  }
+}

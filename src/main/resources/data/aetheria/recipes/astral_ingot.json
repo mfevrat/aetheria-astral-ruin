@@ -1,0 +1,22 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:gold_ingot"
+    },
+    {
+      "item": "aetheria:astral_shard"
+    },
+    {
+      "item": "aetheria:astral_shard"
+    },
+    {
+      "item": "aetheria:astral_shard"
+    }
+  ],
+  "result": {
+    "item": "aetheria:astral_ingot",
+    "count": 1
+  }
+}

@@ -1,0 +1,60 @@
+{
+  "spell.cast_charge": {
+    "subtitle": "subtitles.aetheria.spell.cast_charge",
+    "sounds": [
+      {
+        "name": "aetheria:cast_charge"
+      }
+    ]
+  },
+  "spell.crystal_resonance": {
+    "subtitle": "subtitles.aetheria.spell.crystal_resonance",
+    "sounds": [
+      {
+        "name": "aetheria:crystal_resonance"
+      }
+    ]
+  },
+  "spell.judgement_impact": {
+    "subtitle": "subtitles.aetheria.spell.judgement_impact",
+    "sounds": [
+      {
+        "name": "aetheria:judgement_impact",
+        "attenuation_distance": 48
+      }
+    ]
+  },
+  "spell.nova_burst": {
+    "subtitle": "subtitles.aetheria.spell.nova_burst",
+    "sounds": [
+      {
+        "name": "aetheria:nova_burst"
+      }
+    ]
+  },
+  "spell.rune_explode": {
+    "subtitle": "subtitles.aetheria.spell.rune_explode",
+    "sounds": [
+      {
+        "name": "aetheria:rune_explode"
+      }
+    ]
+  },
+  "entity.valerius.transition": {
+    "subtitle": "subtitles.aetheria.entity.valerius.transition",
+    "sounds": [
+      {
+        "name": "aetheria:valerius_transition",
+        "attenuation_distance": 48
+      }
+    ]
+  },
+  "music.valerius": {
+    "sounds": [
+      {
+        "name": "aetheria:valerius_theme",
+        "stream": true
+      }
+    ]
+  }
+}

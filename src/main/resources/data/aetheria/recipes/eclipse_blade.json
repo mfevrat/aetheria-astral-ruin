@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "pattern": [
+    " I ",
+    " D ",
+    " B "
+  ],
+  "key": {
+    "I": {
+      "item": "aetheria:astral_ingot"
+    },
+    "D": {
+      "item": "minecraft:diamond_sword"
+    },
+    "B": {
+      "item": "minecraft:blaze_rod"
+    }
+  },
+  "result": {
+    "item": "aetheria:eclipse_blade",
+    "count": 1
+  }
+}

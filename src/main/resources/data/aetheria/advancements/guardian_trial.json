@@ -1,0 +1,31 @@
+{
+  "parent": "aetheria:invoker",
+  "display": {
+    "icon": {
+      "item": "aetheria:rune_heart"
+    },
+    "title": {
+      "translate": "advancements.aetheria.guardian_trial.title"
+    },
+    "description": {
+      "translate": "advancements.aetheria.guardian_trial.description"
+    },
+    "frame": "challenge",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "valerius": {
+      "trigger": "minecraft:player_killed_entity",
+      "conditions": {
+        "entity": {
+          "type": "aetheria:valerius"
+        }
+      }
+    }
+  },
+  "rewards": {
+    "experience": 500
+  }
+}

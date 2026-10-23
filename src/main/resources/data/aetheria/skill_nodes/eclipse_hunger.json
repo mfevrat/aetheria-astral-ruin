@@ -1,0 +1,10 @@
+{
+  "x": -150,
+  "y": 55,
+  "cost": 1,
+  "requires": [
+    "astral_bolt"
+  ],
+  "bonus": "mana_leech",
+  "amount": 3
+}

@@ -1,0 +1,110 @@
+{
+	default_hide_dependency_lines: false
+	default_quest_shape: ""
+	filename: "aetheria"
+	group: ""
+	icon: "aetheria:archmage_staff"
+	id: "51C9BC701E7EA419"
+	order_index: 0
+	quest_links: [ ]
+	quests: [
+		{
+			dependencies: []
+			description: [
+				"Explore les grottes entre Y -20 et 20 : les Ruines Englouties cachent un Fragment de Stèle Céleste."
+			]
+			id: "F38B2FFC80A4DF5A"
+			rewards: [
+				{ id: "6BAD6BE28E7AA6E9", type: "xp", xp: 50 }
+				{ id: "9293DE8FC88B2875", item: { Count: 8b, id: "aetheria:astral_shard" }, type: "item" }
+			]
+			tasks: [
+				{ advancement: "aetheria:awakening", criterion: "", id: "9F19950499DD251D", type: "advancement" }
+			]
+			title: "L’Éveil des Runes"
+			x: 0.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["F38B2FFC80A4DF5A"]
+			description: [
+				"Fabrique le Bâton avec un Fragment, des lingots astraux et des bâtons de blaze."
+			]
+			id: "A5AEC7978306D03B"
+			rewards: [
+				{ id: "C6CD75E9BB049A79", item: { Count: 4b, id: "aetheria:mana_crystal" }, type: "item" }
+			]
+			tasks: [
+				{ id: "D7A7A3CC8C3D5F16", item: { Count: 1b, id: "aetheria:archmage_staff" }, type: "item" }
+			]
+			title: "Le Bâton de l’Archi-Mage"
+			x: 2.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["A5AEC7978306D03B"]
+			description: [
+				"Débloque des sorts dans le Grimoire (touche G) et lance 3 sorts différents."
+			]
+			id: "F3F49249DC28FF90"
+			rewards: [
+				{ id: "C5E818FAC0433CBD", type: "xp", xp: 150 }
+			]
+			tasks: [
+				{ advancement: "aetheria:invoker", criterion: "", id: "7DABE929C4A334BF", type: "advancement" }
+			]
+			title: "La Voie de l’Invocateur"
+			x: 4.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["F3F49249DC28FF90"]
+			description: [
+				"Utilise un Fragment pour localiser l’Observatoire Obscur, puis fabrique un Sceau Astral."
+			]
+			id: "E255ACCB1A466884"
+			rewards: [
+				{ id: "00A61F933D6C51E3", item: { Count: 8b, id: "aetheria:mana_crystal" }, type: "item" }
+			]
+			tasks: [
+				{ id: "70EB9A0A96263AE6", item: { Count: 1b, id: "aetheria:astral_sigil" }, type: "item" }
+			]
+			title: "Le Sceau Astral"
+			x: 6.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["E255ACCB1A466884"]
+			description: [
+				"Active l’Autel Astral et terrasse Valerius. Abrite-toi derrière un pilier quand les orbes chargent le Jugement Absolu !"
+			]
+			id: "E512148239292D22"
+			rewards: [
+				{ id: "498893101C593AF5", type: "xp", xp: 500 }
+			]
+			tasks: [
+				{ advancement: "aetheria:guardian_trial", criterion: "", id: "14AA4E719D3C7DEC", type: "advancement" }
+			]
+			title: "L’Épreuve du Gardien"
+			x: 8.0d
+			y: 0.0d
+		}
+		{
+			dependencies: ["E512148239292D22"]
+			description: [
+				"Combine un Cœur de Runes Gravé avec ton Bâton ou ta Lame d’Éclipse pour forger une arme Éveillée."
+			]
+			id: "40B2D002CC92D33D"
+			rewards: [
+				{ id: "32833106536E95DF", type: "xp", xp: 300 }
+			]
+			tasks: [
+				{ advancement: "aetheria:awakened", criterion: "", id: "3170FAB23D90FBAC", type: "advancement" }
+			]
+			title: "L’Éveil des Armes"
+			x: 10.0d
+			y: 0.0d
+		}
+	]
+	title: "Aetheria: Astral Ruin"
+}

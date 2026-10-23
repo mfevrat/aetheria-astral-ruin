@@ -1,0 +1,14 @@
+{
+  "structures": [
+    {
+      "structure": "aetheria:dark_observatory_peaks",
+      "weight": 1
+    }
+  ],
+  "placement": {
+    "type": "minecraft:random_spread",
+    "spacing": 56,
+    "separation": 28,
+    "salt": 735719202
+  }
+}

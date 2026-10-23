@@ -1,0 +1,12 @@
+{
+  "x": 0,
+  "y": -80,
+  "cost": 3,
+  "requires": [
+    "runework_nova",
+    "celestial_focus"
+  ],
+  "bonus": "none",
+  "amount": 0,
+  "spell": "astral_judgement"
+}

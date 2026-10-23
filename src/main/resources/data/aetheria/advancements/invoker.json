@@ -1,0 +1,26 @@
+{
+  "parent": "aetheria:awakening",
+  "display": {
+    "icon": {
+      "item": "aetheria:archmage_staff"
+    },
+    "title": {
+      "translate": "advancements.aetheria.invoker.title"
+    },
+    "description": {
+      "translate": "advancements.aetheria.invoker.description"
+    },
+    "frame": "goal",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "cast_three": {
+      "trigger": "minecraft:impossible"
+    }
+  },
+  "rewards": {
+    "experience": 150
+  }
+}

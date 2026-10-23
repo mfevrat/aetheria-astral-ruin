@@ -1,0 +1,10 @@
+{
+  "x": 80,
+  "y": -10,
+  "cost": 1,
+  "requires": [
+    "astral_bolt"
+  ],
+  "bonus": "spell_power",
+  "amount": 0.1
+}

@@ -1,0 +1,10 @@
+{
+  "x": 70,
+  "y": 115,
+  "cost": 2,
+  "requires": [
+    "astral_reservoir"
+  ],
+  "bonus": "max_mana",
+  "amount": 100
+}

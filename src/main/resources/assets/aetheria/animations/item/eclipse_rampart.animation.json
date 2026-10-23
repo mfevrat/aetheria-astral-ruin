@@ -1,0 +1,25 @@
+{
+ "format_version": "1.8.0",
+ "animations": {
+  "animation.aetheria.idle": {
+   "loop": true,
+   "animation_length": 6.0,
+   "bones": {
+    "emblem": {
+     "rotation": {
+      "0.0": [
+       0,
+       0,
+       0
+      ],
+      "6.0": [
+       0,
+       0,
+       360
+      ]
+     }
+    }
+   }
+  }
+ }
+}

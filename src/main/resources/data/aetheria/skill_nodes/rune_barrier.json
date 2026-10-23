@@ -1,0 +1,11 @@
+{
+  "x": -220,
+  "y": -10,
+  "cost": 2,
+  "requires": [
+    "rune_ward"
+  ],
+  "bonus": "none",
+  "amount": 0,
+  "spell": "rune_barrier"
+}

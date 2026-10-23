@@ -1,0 +1,10 @@
+{
+  "x": 150,
+  "y": -40,
+  "cost": 2,
+  "requires": [
+    "celestial_focus"
+  ],
+  "bonus": "spell_power",
+  "amount": 0.15
+}
