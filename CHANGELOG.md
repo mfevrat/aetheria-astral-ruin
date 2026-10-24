@@ -1,5 +1,20 @@
 # Changelog
 
+## 2.2.0 — introduction de l’aventure
+- **Cinématique d’introduction** à la première connexion de chaque joueur (≈ 18 s) :
+  - caméra en six plans, du ciel jusqu’au joueur ;
+  - narration en quatre lignes, en français et en anglais ;
+  - titre AETHERIA et premier objectif ;
+  - musique d’ouverture composée (19,5 s).
+- Le joueur est protégé (Résistance V) pendant la séquence. La touche Sauter permet de la passer.
+- Nouvelle commande `/aetheria intro` pour la rejouer, et option `adventureIntro` dans la config commune.
+- L’état « introduction vue » est sauvegardé dans la progression du joueur et conservé après la mort.
+- README : liste des mods nécessaires pour l’aventure complète.
+
+## 2.1.3 — progression conservée après la mort
+- Corrige la perte de l’arbre runique, des Éclats Astraux, des titres et des bonus de mana à la mort ou au retour de l’End. Forge invalide la capability de l’ancien joueur avant la copie, et la `LazyOptional` invalidée ne redevenait jamais valide : la copie ne trouvait aucune donnée. L’accès est maintenant recréé à la demande.
+- Sauvegarde de secours : la progression est aussi enregistrée dans `PlayerPersisted`, que Forge recopie après la mort, et sert de restauration si la capability échoue.
+
 ## 2.1.2 — correctif de plantage
 - Corrige le plantage « Rendering Particle » (`TextureSheetParticle` sans sprite) au lancement de la plupart des sorts : les braises (`ember`) et la fumée (`void_smoke`) recevaient leur texture seulement au premier tick, alors que Minecraft peut les dessiner avant. Toutes les particules du mod ont maintenant leur sprite dès leur création.
 

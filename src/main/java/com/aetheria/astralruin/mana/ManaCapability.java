@@ -23,12 +23,32 @@ public final class ManaCapability {
         return player.getCapability(MANA).resolve();
     }
 
+    // ---------- Sauvegarde de secours dans les donnees persistantes (copiees par Forge apres la mort) ----------
+    private static final String PERSISTED = "PlayerPersisted";
+    private static final String BACKUP_KEY = "aetheria_mana";
+
+    public static void backup(Player player, ManaData data) {
+        CompoundTag root = player.getPersistentData();
+        CompoundTag persisted = root.getCompound(PERSISTED);
+        persisted.put(BACKUP_KEY, data.save());
+        root.put(PERSISTED, persisted);
+    }
+
+    /** @return la sauvegarde de secours, ou null s'il n'y en a pas */
+    public static @Nullable CompoundTag readBackup(Player player) {
+        CompoundTag persisted = player.getPersistentData().getCompound(PERSISTED);
+        return persisted.contains(BACKUP_KEY) ? persisted.getCompound(BACKUP_KEY) : null;
+    }
+
     public static class Provider implements ICapabilitySerializable<CompoundTag> {
         private final ManaData data = new ManaData();
-        private final LazyOptional<ManaData> optional = LazyOptional.of(() -> data);
+        private LazyOptional<ManaData> optional = LazyOptional.of(() -> data);
 
         @Override
         public @NotNull <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap, @Nullable Direction side) {
+            // Forge invalide les capabilities a la mort puis appelle reviveCaps() pour la copie (PlayerEvent.Clone),
+            // mais une LazyOptional invalidee ne redevient jamais valide : on la recree si besoin.
+            if (!optional.isPresent()) optional = LazyOptional.of(() -> data);
             return MANA.orEmpty(cap, optional);
         }
 

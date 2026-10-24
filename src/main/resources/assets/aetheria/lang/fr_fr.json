@@ -170,5 +170,13 @@
   "subtitles.aetheria.spell.meteor_fall": "Météore qui tombe",
   "subtitles.aetheria.spell.mine_arm": "Mine runique armée",
   "subtitles.aetheria.entity.valerius.roar": "Valerius rugit",
-  "subtitles.aetheria.entity.valerius.slam": "Impact au sol"
+  "subtitles.aetheria.entity.valerius.slam": "Impact au sol",
+  "cinematic.aetheria.adventure.line1": "Il y a mille ans, une pluie d’étoiles s’abattit sur ce monde.",
+  "cinematic.aetheria.adventure.line2": "De leurs éclats naquit la magie astrale… et les runes qui la gouvernent.",
+  "cinematic.aetheria.adventure.line3": "Pour les protéger, les anciens forgèrent un gardien : Valerius.",
+  "cinematic.aetheria.adventure.line4": "Mais le gardien a sombré. Ses runes rongent désormais le ciel.",
+  "cinematic.aetheria.adventure.title": "AETHERIA",
+  "cinematic.aetheria.adventure.subtitle": "Astral Ruin",
+  "cinematic.aetheria.adventure.objective": "Trouvez un Fragment de Stèle Céleste dans les Ruines Englouties, sous la surface.",
+  "subtitles.aetheria.music.adventure_intro": "Musique : ouverture d’Aetheria"
 }

@@ -123,5 +123,14 @@
         "attenuation_distance": 48
       }
     ]
+  },
+  "music.adventure_intro": {
+    "subtitle": "subtitles.aetheria.music.adventure_intro",
+    "sounds": [
+      {
+        "name": "aetheria:adventure_intro",
+        "stream": true
+      }
+    ]
   }
 }

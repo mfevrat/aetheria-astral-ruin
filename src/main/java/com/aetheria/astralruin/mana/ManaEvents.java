@@ -1,9 +1,11 @@
 package com.aetheria.astralruin.mana;
 
 import com.aetheria.astralruin.Aetheria;
+import com.aetheria.astralruin.config.AetheriaConfig;
 import com.aetheria.astralruin.network.ManaSyncS2C;
 import com.aetheria.astralruin.network.ModNetwork;
 import com.aetheria.astralruin.spell.CastingManager;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
@@ -29,10 +31,25 @@ public final class ManaEvents {
     @SubscribeEvent
     public static void clone(PlayerEvent.Clone event) {
         Player original = event.getOriginal();
+        Player now = event.getEntity();
         original.reviveCaps();
-        ManaCapability.get(original).ifPresent(old ->
-                ManaCapability.get(event.getEntity()).ifPresent(now ->
-                        now.copyFrom(old, event.isWasDeath(), event.getEntity())));
+        var oldData = ManaCapability.get(original);
+        var newData = ManaCapability.get(now);
+        if (newData.isPresent()) {
+            if (oldData.isPresent()) {
+                newData.get().copyFrom(oldData.get(), event.isWasDeath(), now);
+            } else {
+                // Secours : la sauvegarde persistante a deja ete recopiee par Forge sur le nouveau joueur
+                CompoundTag backup = ManaCapability.readBackup(now);
+                if (backup != null) {
+                    ManaData restored = new ManaData();
+                    restored.load(backup);
+                    newData.get().copyFrom(restored, event.isWasDeath(), now);
+                    Aetheria.LOGGER.warn("Progression magique de {} restauree depuis la sauvegarde de secours", now.getName().getString());
+                }
+            }
+            ManaCapability.backup(now, newData.get());
+        }
         original.invalidateCaps();
     }
 
@@ -66,6 +83,12 @@ public final class ManaEvents {
         if (event.phase != TickEvent.Phase.END || !(event.player instanceof ServerPlayer sp)) return;
         CastingManager.tick(sp);
         ManaCapability.get(sp).ifPresent(data -> {
+            // Cinematique d'aventure : une seule fois par joueur, 3 s apres sa premiere arrivee
+            if (!data.hasSeenIntro() && sp.tickCount >= 60 && AetheriaConfig.ADVENTURE_INTRO.get()) {
+                data.markIntroSeen();
+                data.markDirty();
+                playAdventureIntro(sp);
+            }
             float max = data.maxMana(sp);
             if (data.getRegenBlockedTicks() > 0) {
                 data.setRegenBlockedTicks(data.getRegenBlockedTicks() - 1);
@@ -81,8 +104,19 @@ public final class ManaEvents {
         });
     }
 
+    public static final int ADVENTURE_INTRO_TICKS = 360;
+
+    /** Lance la cinematique d'introduction (joueur protege pendant sa duree). */
+    public static void playAdventureIntro(ServerPlayer player) {
+        player.addEffect(new net.minecraft.world.effect.MobEffectInstance(
+                net.minecraft.world.effect.MobEffects.DAMAGE_RESISTANCE, ADVENTURE_INTRO_TICKS + 40, 4, false, false));
+        ModNetwork.sendToPlayer(player, new com.aetheria.astralruin.network.CinematicS2C(
+                com.aetheria.astralruin.network.CinematicS2C.Type.ADVENTURE, player.getId()));
+    }
+
     public static void sync(ServerPlayer player) {
         ManaCapability.get(player).ifPresent(data -> {
+            ManaCapability.backup(player, data);
             var tag = data.toSyncTag(player);
             data.load(tag); // met a jour syncedMax cote serveur aussi
             data.clearDirty();

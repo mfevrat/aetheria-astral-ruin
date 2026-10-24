@@ -1,4 +1,4 @@
-# Aetheria: Astral Ruin — v2.1.0
+# Aetheria: Astral Ruin — v2.2.0
 
 Mod Forge pour **Minecraft 1.20.4** (Forge 49.x) avec **GeckoLib 4.4.4**.
 Magie cinématique à cercles runiques, trois sorts, équipement astral, un boss en deux phases et deux structures générées.
@@ -9,14 +9,29 @@ Prérequis : JDK 17 et une connexion Internet (Gradle télécharge Forge, Minecr
 
 ```bash
 ./gradlew runClient     # lance le jeu de développement (Windows : gradlew.bat runClient)
-./gradlew build         # produit build/libs/aetheria-2.1.0.jar
+./gradlew build         # produit build/libs/aetheria-2.2.0.jar
 ```
 
-Pour jouer avec le jar : installe Forge 1.20.4 (49.0.27 ou plus) et **GeckoLib 4.4.4 pour Forge 1.20.4**, puis copie `aetheria-2.1.0.jar` dans `mods/`.
+Pour jouer avec le jar : installe Forge 1.20.4 (49.0.27 ou plus) et **GeckoLib 4.4.4 pour Forge 1.20.4**, puis copie `aetheria-2.2.0.jar` dans `mods/`.
 
 Dans IntelliJ IDEA : *Open* → choisis `build.gradle` → *Open as Project*, attends l’import, puis lance la configuration `runClient`.
 
 > Ce projet a été écrit sans pouvoir être compilé dans l’environnement de génération (le dépôt Maven de Forge y était inaccessible). La syntaxe Java a été vérifiée avec `javac` et les signatures Forge/GeckoLib contrôlées dans leurs sources 1.20.4, mais il peut rester quelques erreurs de compilation mineures à corriger à la première compilation. Si tu en rencontres, colle le message d’erreur et je te donne le correctif.
+
+## Mods à installer pour l’aventure complète
+
+Tous en version **Minecraft 1.20.4, Forge**.
+
+| Mod | Rôle | Obligatoire |
+| --- | --- | --- |
+| Forge 49.x (49.0.27 ou plus) | Chargeur de mods | Oui |
+| GeckoLib 4 (`geckolib-forge-1.20.4-4.4.4` ou plus) | Modèles et animations 3D | Oui |
+| Aetheria: Astral Ruin | Le mod | Oui |
+| FTB Quests | Livre de quêtes (chapitre fourni dans `extras/ftbquests/`) | Non |
+| FTB Library, FTB Teams, Architectury API | Dépendances de FTB Quests | Seulement avec FTB Quests |
+| Just Enough Items (JEI) | Voir les recettes en jeu | Non, mais conseillé |
+
+Sans FTB Quests, l’aventure se suit déjà grâce aux advancements (touche L) et à la cinématique d’introduction.
 
 ## Compiler sur GitHub (sans rien installer)
 
@@ -122,6 +137,16 @@ Chaque objet du mod a son modèle GeckoLib animé en boucle, visible dans l’in
 Les projectiles (cristaux de Runework Nova, lames d’éclipse) et les orbes de soutien de Valerius utilisent automatiquement ces modèles.
 
 Les fichiers sont dans `assets/aetheria/geo/`, `animations/` et `textures/geo/` (avec un `_glowmask.png` pour les parties lumineuses). Chaque modèle joue l’animation `animation.aetheria.idle` : tu peux tout retravailler dans Blockbench (plugin GeckoLib) sans toucher au Java, tant que ce nom d’animation est conservé.
+
+## Cinématique d’introduction
+
+À sa première arrivée dans le monde, chaque joueur assiste à une introduction d’environ 18 secondes :
+- une caméra qui part du ciel, survole les environs et se pose face au joueur ;
+- un récit en quatre lignes (la pluie d’étoiles, les runes, le gardien Valerius, sa chute) ;
+- le titre AETHERIA et le premier objectif ;
+- une musique d’ouverture.
+
+Le joueur est protégé pendant la séquence, et la touche *Sauter* permet de la passer. La commande `/aetheria intro` la rejoue. Elle se désactive pour tous avec `adventureIntro` (config commune) ou pour soi avec `bossCinematics` (config client).
 
 ## Combat et effets (v2)
 

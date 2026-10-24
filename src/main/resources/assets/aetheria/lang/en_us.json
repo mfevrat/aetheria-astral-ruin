@@ -170,5 +170,13 @@
   "subtitles.aetheria.spell.meteor_fall": "Meteor falls",
   "subtitles.aetheria.spell.mine_arm": "Rune mine arms",
   "subtitles.aetheria.entity.valerius.roar": "Valerius roars",
-  "subtitles.aetheria.entity.valerius.slam": "Ground slam"
+  "subtitles.aetheria.entity.valerius.slam": "Ground slam",
+  "cinematic.aetheria.adventure.line1": "A thousand years ago, a rain of stars fell upon this world.",
+  "cinematic.aetheria.adventure.line2": "From their shards rose astral magic... and the runes that govern it.",
+  "cinematic.aetheria.adventure.line3": "To guard them, the ancients forged a warden: Valerius.",
+  "cinematic.aetheria.adventure.line4": "But the guardian has fallen. Now his runes devour the sky.",
+  "cinematic.aetheria.adventure.title": "AETHERIA",
+  "cinematic.aetheria.adventure.subtitle": "Astral Ruin",
+  "cinematic.aetheria.adventure.objective": "Find a Celestial Stele Fragment in the Sunken Ruins, below the surface.",
+  "subtitles.aetheria.music.adventure_intro": "Music: Aetheria overture"
 }

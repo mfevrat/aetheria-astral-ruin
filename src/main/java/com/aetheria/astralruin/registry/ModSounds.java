@@ -17,6 +17,7 @@ public final class ModSounds {
     public static final RegistryObject<SoundEvent> RUNE_EXPLODE = reg("spell.rune_explode");
     public static final RegistryObject<SoundEvent> VALERIUS_TRANSITION = reg("entity.valerius.transition");
     public static final RegistryObject<SoundEvent> VALERIUS_THEME = reg("music.valerius");
+    public static final RegistryObject<SoundEvent> ADVENTURE_THEME = reg("music.adventure_intro");
     public static final RegistryObject<SoundEvent> SLASH = reg("spell.slash");
     public static final RegistryObject<SoundEvent> THUNDER = reg("spell.thunder");
     public static final RegistryObject<SoundEvent> CHAINS = reg("spell.chains");

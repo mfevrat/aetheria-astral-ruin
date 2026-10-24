@@ -25,6 +25,7 @@ public class ManaData {
     private String titleKey = "";
     private float bonusMaxMana;
     private boolean rampartReceived;
+    private boolean introSeen;
     /** Valeur synchronisee pour le client (le client ne calcule pas les attributs des autres sources). */
     private float syncedMaxMana = 100;
     private boolean dirty = true;
@@ -157,6 +158,9 @@ public class ManaData {
         dirty = true;
     }
 
+    public boolean hasSeenIntro() { return introSeen; }
+    public void markIntroSeen() { introSeen = true; }
+
     public boolean hasReceivedRampart() { return rampartReceived; }
     public void markRampartReceived() { rampartReceived = true; }
 
@@ -186,6 +190,7 @@ public class ManaData {
         tag.putString("title", titleKey);
         tag.putFloat("bonusMax", bonusMaxMana);
         tag.putBoolean("rampart", rampartReceived);
+        tag.putBoolean("introSeen", introSeen);
         return tag;
     }
 
@@ -205,6 +210,7 @@ public class ManaData {
         titleKey = tag.getString("title");
         bonusMaxMana = tag.getFloat("bonusMax");
         rampartReceived = tag.getBoolean("rampart");
+        introSeen = tag.getBoolean("introSeen");
         if (tag.contains("syncedMax")) syncedMaxMana = tag.getFloat("syncedMax");
         dirty = true;
     }

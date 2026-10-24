@@ -9,6 +9,7 @@ public final class AetheriaConfig {
     public static final ForgeConfigSpec.BooleanValue JUDGEMENT_BREAKS_BLOCKS;
     public static final ForgeConfigSpec.IntValue JUDGEMENT_BLOCKS_PER_TICK;
     public static final ForgeConfigSpec.DoubleValue BOSS_HEALTH_MULTIPLIER;
+    public static final ForgeConfigSpec.BooleanValue ADVENTURE_INTRO;
 
     public static final ForgeConfigSpec.DoubleValue SHAKE_SCALE;
     public static final ForgeConfigSpec.DoubleValue PARTICLE_DENSITY;
@@ -31,6 +32,10 @@ public final class AetheriaConfig {
         BOSS_HEALTH_MULTIPLIER = common
                 .comment("Multiplicateur de PV de Valerius (utile en multijoueur).")
                 .defineInRange("valeriusHealthMultiplier", 1.0, 0.1, 20.0);
+        common.pop();
+        common.push("adventure");
+        ADVENTURE_INTRO = common.comment("Jouer la cinematique d'introduction a la premiere connexion de chaque joueur.")
+                .define("adventureIntro", true);
         common.pop();
         COMMON_SPEC = common.build();
 
