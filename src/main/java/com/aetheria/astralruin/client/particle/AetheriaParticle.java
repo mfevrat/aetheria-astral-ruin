@@ -34,6 +34,8 @@ public class AetheriaParticle extends TextureSheetParticle {
         this.spin = (random.nextFloat() - 0.5F) * 0.3F;
         this.roll = random.nextFloat() * (float) (Math.PI * 2);
         this.oRoll = roll;
+        // Le sprite DOIT exister des la creation : Minecraft peut dessiner la particule avant son premier tick.
+        setSpriteFromAge(sprites);
         switch (kind) {
             case SHARD -> {
                 this.gravity = 0.6F;
@@ -47,7 +49,7 @@ public class AetheriaParticle extends TextureSheetParticle {
             }
             case EMBER -> this.friction = 0.92F;
             case SMOKE -> this.friction = 0.94F;
-            default -> setSpriteFromAge(sprites);
+            default -> {}
         }
     }
 

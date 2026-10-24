@@ -12,7 +12,7 @@ import net.minecraftforge.network.SimpleChannel;
 public final class ModNetwork {
     public static final SimpleChannel CHANNEL = ChannelBuilder
             .named(Aetheria.id("main"))
-            .networkProtocolVersion(1)
+            .networkProtocolVersion(3)
             .simpleChannel();
 
     private static boolean registered;

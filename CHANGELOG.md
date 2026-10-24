@@ -1,5 +1,26 @@
 # Changelog
 
+## 2.1.2 — correctif de plantage
+- Corrige le plantage « Rendering Particle » (`TextureSheetParticle` sans sprite) au lancement de la plupart des sorts : les braises (`ember`) et la fumée (`void_smoke`) recevaient leur texture seulement au premier tick, alors que Minecraft peut les dessiner avant. Toutes les particules du mod ont maintenant leur sprite dès leur création.
+
+## 2.1.2 — correctif de plantage
+- **Corrige le plantage au lancement de tous les sorts sauf Trait Astral** (« Rendering Particle », sprite null). Les braises et la fumée n’avaient pas de texture à leur création ; si Minecraft les dessinait avant leur premier tick, le jeu plantait. Toutes les particules reçoivent maintenant leur sprite dès leur création.
+
+## 2.1.1 — robustesse
+- Une erreur dans un sort n’arrête plus le jeu : le sort est interrompu, l’erreur est écrite dans `logs/latest.log` et résumée dans le chat (fichier et ligne en cause).
+- Même protection côté client pour les cercles runiques, les effets visuels et les cinématiques.
+- Protocole réseau en version 3 : un client et un serveur avec des versions différentes du mod sont refusés à la connexion au lieu de planter.
+
+## 2.1.0 — armure Astrale ciselée
+- **Armure Astrale entièrement remodelée** : 113 pièces au lieu d’une trentaine, avec UV par face et texture de 512 px.
+  - Casque : visière lumineuse, bandeau et crête d’or, gemme frontale, garde-joues, protège-nuque, ailes ornementales, halo flottant.
+  - Plastron : gravure runique lumineuse, cœur de cristal pulsant, col d’or, lames abdominales, ceinture à boucle, tabard, arête dorsale.
+  - Épaulières à deux lames, liseré d’or, pointes ornementales et runes en orbite ; gantelets à manchette et rune.
+  - Jambières : cuissots à lame articulée et rune, genouillères ornées, tassettes, grèves à écailles, filets d’or.
+  - Solerets : embout et rebord d’or, ailettes de cheville, anneaux tournants.
+- **Peinture « astrale »** : plaques nuit étoilée parcourues de constellations (certaines étoiles brillent dans le noir), filets incrustés, biseaux, rivets dorés, filigranes d’or.
+- **Icônes d’inventaire** : générées à partir des vraies pièces portées, recentrées, avec la même texture et une animation propre.
+
 ## 2.0.0 — combat spectaculaire et boss cinématique
 - **Moteur d’effets visuels** (paquet `SpawnVfxS2C`, rendu additif). Il propose 8 effets : arc de lame, éclair, onde, implosion, faisceau, pilier, éclat et chaîne.
 - **Textures et particules** :

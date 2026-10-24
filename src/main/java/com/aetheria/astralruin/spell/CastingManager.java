@@ -107,14 +107,31 @@ public final class CastingManager {
             player.level().playSound(null, player.blockPosition(), ModSounds.CAST_CHARGE.get(),
                     SoundSource.PLAYERS, 1.0F, 1.0F);
         }
-        spell.onCastStart(player, ctx);
-        ActiveCast cast = new ActiveCast(spell, ctx);
-        if (spell.onCastTick(player, ctx, 0)) {
-            ACTIVE.put(player.getUUID(), cast);
-        } else {
-            spell.onCastEnd(player, ctx, false);
+        try {
+            spell.onCastStart(player, ctx);
+            ActiveCast cast = new ActiveCast(spell, ctx);
+            if (spell.onCastTick(player, ctx, 0)) {
+                ACTIVE.put(player.getUUID(), cast);
+            } else {
+                spell.onCastEnd(player, ctx, false);
+            }
+        } catch (Exception e) {
+            ACTIVE.remove(player.getUUID());
+            report(player, spell, e);
         }
         ManaEvents.sync(player);
+    }
+
+    /** Une erreur dans un sort ne doit jamais faire planter le serveur : on l'interrompt et on la signale. */
+    private static void report(ServerPlayer player, AbstractSpell spell, Exception e) {
+        Aetheria.LOGGER.error("Erreur pendant le sort {} lance par {}", spell.id(), player.getName().getString(), e);
+        StackTraceElement where = null;
+        for (StackTraceElement el : e.getStackTrace()) {
+            if (el.getClassName().startsWith("com.aetheria")) { where = el; break; }
+        }
+        String loc = where == null ? "?" : where.getFileName() + ":" + where.getLineNumber();
+        player.displayClientMessage(Component.literal("[Aetheria] Erreur dans " + spell.id() + " : "
+                + e.getClass().getSimpleName() + " (" + e.getMessage() + ") @ " + loc).withStyle(ChatFormatting.RED), false);
     }
 
     private static void applyBacklash(ServerPlayer player, ManaData data, float debt) {
@@ -136,9 +153,14 @@ public final class CastingManager {
             return;
         }
         cast.tick++;
-        if (!cast.spell.onCastTick(player, cast.ctx, cast.tick)) {
+        try {
+            if (!cast.spell.onCastTick(player, cast.ctx, cast.tick)) {
+                ACTIVE.remove(player.getUUID());
+                cast.spell.onCastEnd(player, cast.ctx, false);
+            }
+        } catch (Exception e) {
             ACTIVE.remove(player.getUUID());
-            cast.spell.onCastEnd(player, cast.ctx, false);
+            report(player, cast.spell, e);
         }
     }
 

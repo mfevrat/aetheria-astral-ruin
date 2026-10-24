@@ -30,7 +30,14 @@ public final class RuneCircleManager {
             return;
         }
         if (mc.isPaused()) return;
-        ACTIVE.removeIf(e -> !e.tick(mc.level));
+        ACTIVE.removeIf(e -> {
+            try {
+                return !e.tick(mc.level);
+            } catch (Exception ex) {
+                com.aetheria.astralruin.client.ClientErrors.report("cercle (tick)", ex);
+                return true;
+            }
+        });
         tickAuras(mc);
     }
 
@@ -54,8 +61,23 @@ public final class RuneCircleManager {
 
     public static void render(PoseStack pose, MultiBufferSource buffers, Vec3 cam, float partialTick) {
         if (!AetheriaConfig.RENDER_DECALS.get()) return;
-        for (RuneCircleEmitter e : ACTIVE) e.render(pose, buffers, cam, partialTick);
-        for (RuneCircleEmitter e : AURAS.values()) e.render(pose, buffers, cam, partialTick);
+        ACTIVE.removeIf(e -> !safeRender(e, pose, buffers, cam, partialTick));
+        AURAS.values().removeIf(e -> !safeRender(e, pose, buffers, cam, partialTick));
+    }
+
+    private static boolean safeRender(RuneCircleEmitter e, PoseStack pose, MultiBufferSource buffers, Vec3 cam, float pt) {
+        int depth = 0;
+        try {
+            pose.pushPose();
+            depth = 1;
+            e.render(pose, buffers, cam, pt);
+            return true;
+        } catch (Exception ex) {
+            com.aetheria.astralruin.client.ClientErrors.report("cercle (rendu)", ex);
+            return false;
+        } finally {
+            if (depth == 1) pose.popPose();
+        }
     }
 
     private RuneCircleManager() {}

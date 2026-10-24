@@ -24,13 +24,31 @@ public final class VfxManager {
             return;
         }
         if (mc.isPaused()) return;
-        ACTIVE.removeIf(v -> !v.tick(mc.level));
+        ACTIVE.removeIf(v -> {
+            try {
+                return !v.tick(mc.level);
+            } catch (Exception ex) {
+                com.aetheria.astralruin.client.ClientErrors.report("effet (tick)", ex);
+                return true;
+            }
+        });
     }
 
     public static void render(PoseStack pose, MultiBufferSource buffers, Camera camera, float pt) {
         Minecraft mc = Minecraft.getInstance();
         if (mc.level == null) return;
-        for (Vfx v : ACTIVE) v.render(pose, buffers, camera, mc.level, pt);
+        ACTIVE.removeIf(v -> {
+            pose.pushPose();
+            try {
+                v.render(pose, buffers, camera, mc.level, pt);
+                return false;
+            } catch (Exception ex) {
+                com.aetheria.astralruin.client.ClientErrors.report("effet (rendu)", ex);
+                return true;
+            } finally {
+                pose.popPose();
+            }
+        });
     }
 
     private VfxManager() {}

@@ -1,4 +1,4 @@
-# Aetheria: Astral Ruin — v2.0.0
+# Aetheria: Astral Ruin — v2.1.0
 
 Mod Forge pour **Minecraft 1.20.4** (Forge 49.x) avec **GeckoLib 4.4.4**.
 Magie cinématique à cercles runiques, trois sorts, équipement astral, un boss en deux phases et deux structures générées.
@@ -9,10 +9,10 @@ Prérequis : JDK 17 et une connexion Internet (Gradle télécharge Forge, Minecr
 
 ```bash
 ./gradlew runClient     # lance le jeu de développement (Windows : gradlew.bat runClient)
-./gradlew build         # produit build/libs/aetheria-2.0.0.jar
+./gradlew build         # produit build/libs/aetheria-2.1.0.jar
 ```
 
-Pour jouer avec le jar : installe Forge 1.20.4 (49.0.27 ou plus) et **GeckoLib 4.4.4 pour Forge 1.20.4**, puis copie `aetheria-2.0.0.jar` dans `mods/`.
+Pour jouer avec le jar : installe Forge 1.20.4 (49.0.27 ou plus) et **GeckoLib 4.4.4 pour Forge 1.20.4**, puis copie `aetheria-2.1.0.jar` dans `mods/`.
 
 Dans IntelliJ IDEA : *Open* → choisis `build.gradle` → *Open as Project*, attends l’import, puis lance la configuration `runClient`.
 
@@ -115,7 +115,7 @@ Chaque objet du mod a son modèle GeckoLib animé en boucle, visible dans l’in
 | Fragment de Stèle | runes lumineuses, éclat de pierre qui flotte |
 | Éclat et Lingot astraux | rotation, bande runique pulsante, étincelle |
 | Rempart d’Éclipse | emblème d’éclipse tournant sur la face avant |
-| Armure Astrale (4 icônes + portée) | halo au-dessus du casque, runes autour des épaulières, gemme de plastron, anneaux aux bottes |
+| Armure Astrale (4 icônes + portée) | armure ciselée de 113 pièces (texture 512 px) : halo du casque, cœur de cristal qui pulse, runes en orbite autour des épaulières, anneaux aux solerets |
 | Autel Astral (bloc et objet) | anneaux d’or et de rose en rotation, cristal flottant |
 | Œuf de Valerius | œuf runique qui oscille, anneau en orbite |
 

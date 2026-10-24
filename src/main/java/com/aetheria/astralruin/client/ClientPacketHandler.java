@@ -10,15 +10,28 @@ import com.aetheria.astralruin.network.SpawnRuneCircleS2C;
 /** Seul point d'entree des paquets serveur -> client. Jamais reference sur serveur dedie. */
 public final class ClientPacketHandler {
     public static void spawnCircle(SpawnRuneCircleS2C msg) {
-        RuneCircleManager.add(new RuneCircleEmitter(msg.center(), msg.normal(), msg.preset(), msg.radius(), msg.duration()));
+        try {
+            RuneCircleManager.add(new RuneCircleEmitter(msg.center(), msg.normal(), msg.preset(), msg.radius(), msg.duration()));
+        } catch (Exception e) {
+            ClientErrors.report("cercle " + msg.preset(), e);
+        }
     }
 
     public static void spawnVfx(com.aetheria.astralruin.network.SpawnVfxS2C msg) {
-        com.aetheria.astralruin.client.vfx.VfxManager.add(msg);
+        try {
+            com.aetheria.astralruin.client.vfx.VfxManager.add(msg);
+        } catch (Exception e) {
+            ClientErrors.report("effet " + msg.type(), e);
+        }
     }
 
     public static void cinematic(com.aetheria.astralruin.network.CinematicS2C msg) {
-        com.aetheria.astralruin.client.cinematic.CinematicManager.start(msg.type(), msg.entityId());
+        try {
+            com.aetheria.astralruin.client.cinematic.CinematicManager.start(msg.type(), msg.entityId());
+        } catch (Exception e) {
+            com.aetheria.astralruin.client.cinematic.CinematicManager.stop();
+            ClientErrors.report("cinematique " + msg.type(), e);
+        }
     }
 
     public static void shake(CameraShakeS2C msg) {

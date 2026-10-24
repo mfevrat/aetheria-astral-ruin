@@ -5,7 +5,7 @@
    "loop": true,
    "animation_length": 4.0,
    "bones": {
-    "piece": {
+    "icon_root": {
      "rotation": {
       "0.0": [
        0,
@@ -24,7 +24,7 @@
       ]
      }
     },
-    "orbit": {
+    "halo": {
      "rotation": {
       "0.0": [
        0,
