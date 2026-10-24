@@ -1,0 +1,11 @@
+{
+  "x": -195,
+  "y": 60,
+  "cost": 2,
+  "requires": [
+    "rune_mines"
+  ],
+  "bonus": "none",
+  "amount": 0,
+  "spell": "glyph_prison"
+}

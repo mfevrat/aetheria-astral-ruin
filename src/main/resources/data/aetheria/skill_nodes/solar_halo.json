@@ -1,0 +1,11 @@
+{
+  "x": 195,
+  "y": 60,
+  "cost": 2,
+  "requires": [
+    "celestial_focus_2"
+  ],
+  "bonus": "none",
+  "amount": 0,
+  "spell": "solar_halo"
+}

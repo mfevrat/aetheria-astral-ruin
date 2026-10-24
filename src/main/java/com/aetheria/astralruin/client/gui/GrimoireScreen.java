@@ -17,9 +17,9 @@ import java.util.List;
 
 /** Grimoire Astral : carte d'etoiles de l'arbre runique. Clic sur un noeud disponible pour le debloquer. */
 public class GrimoireScreen extends Screen {
-    private static final int NODE = 9;
+    private static final int NODE = 11;
     private final float[][] stars = new float[90][3];
-    private double panX, panY;
+    private double panX, panY = -40;
     private boolean dragging;
 
     public GrimoireScreen() {
@@ -72,8 +72,13 @@ public class GrimoireScreen extends Screen {
             }
             g.fill(x - NODE, y - NODE, x + NODE, y + NODE, border);
             g.fill(x - NODE + 1, y - NODE + 1, x + NODE - 1, y + NODE - 1, fill);
-            String glyph = n.spell() != null ? "\u2726" : "\u25C6";
-            g.drawCenteredString(font, glyph, x, y - 4, unlocked ? 0xFFFFE9A8 : 0xFFB0A0D0);
+            if (n.spell() != null) {
+                g.blit(com.aetheria.astralruin.Aetheria.id("textures/gui/spells/" + n.spell() + ".png"),
+                        x - NODE + 1, y - NODE + 1, NODE * 2 - 2, NODE * 2 - 2, 0F, 0F, 32, 32, 32, 32);
+                if (!unlocked) g.fill(x - NODE + 1, y - NODE + 1, x + NODE - 1, y + NODE - 1, available ? 0x60000000 : 0xB0000000);
+            } else {
+                g.drawCenteredString(font, "\u25C6", x, y - 4, unlocked ? 0xFFFFE9A8 : 0xFFB0A0D0);
+            }
             if (Math.abs(mouseX - x) <= NODE && Math.abs(mouseY - y) <= NODE) hovered = n;
         }
 

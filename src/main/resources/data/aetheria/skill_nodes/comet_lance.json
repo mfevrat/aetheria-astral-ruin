@@ -1,0 +1,11 @@
+{
+  "x": 195,
+  "y": 0,
+  "cost": 2,
+  "requires": [
+    "starfall"
+  ],
+  "bonus": "none",
+  "amount": 0,
+  "spell": "comet_lance"
+}

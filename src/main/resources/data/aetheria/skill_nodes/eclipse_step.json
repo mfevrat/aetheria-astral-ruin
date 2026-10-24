@@ -1,6 +1,6 @@
 {
-  "x": -220,
-  "y": 90,
+  "x": -55,
+  "y": 120,
   "cost": 2,
   "requires": [
     "eclipse_hunger"

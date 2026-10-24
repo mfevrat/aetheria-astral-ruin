@@ -36,6 +36,14 @@ public abstract class AbstractSpell {
         return focus == Focus.STAFF_OR_BLADE && mainHand.getItem() instanceof EclipseBladeItem;
     }
 
+    /**
+     * Verification avant paiement (cible presente, etc.).
+     * @return une cle de traduction d'erreur, ou null si le sort peut etre lance
+     */
+    public @org.jetbrains.annotations.Nullable String precheck(ServerPlayer caster) {
+        return null;
+    }
+
     /** Appele une fois, quand l'incantation commence (mana deja payee). */
     public void onCastStart(ServerPlayer caster, CastContext ctx) {}
 

@@ -60,6 +60,12 @@ public class AstralJudgementSpell extends AbstractSpell {
         level.addFreshEntity(beam);
 
         Fx.groundCircle(level, ctx.target, RuneCirclePreset.SHOCKWAVE, 9F, 12);
+        Fx.shockwave(level, ctx.target, 14F, 0xFFF4D0, 20);
+        Fx.flare(level, ctx.target.add(0, 1, 0), 7F, 0xFFFFFF, 14);
+        for (int i = 0; i < 6; i++) {
+            double a = Math.PI * 2 * i / 6;
+            Fx.lightning(level, ctx.target.add(0, HEIGHT, 0), ctx.target.add(Math.cos(a) * 6, 0, Math.sin(a) * 6), 0xFFE9A8, 0.45F, 10);
+        }
         Fx.burst(level, ctx.target.add(0, 0.5, 0), Fx.WHITE, 80, 0.6F);
         Fx.shake(level, ctx.target, 0.8F, 25, 48);
         level.playSound(null, ctx.target.x, ctx.target.y, ctx.target.z, ModSounds.JUDGEMENT_IMPACT.get(),

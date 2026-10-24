@@ -1,10 +1,9 @@
 {
-  "x": 0,
-  "y": -80,
+  "x": 110,
+  "y": -95,
   "cost": 3,
   "requires": [
-    "runework_nova",
-    "celestial_focus"
+    "starfall"
   ],
   "bonus": "none",
   "amount": 0,

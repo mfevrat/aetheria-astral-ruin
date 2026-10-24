@@ -91,6 +91,17 @@ public class AstralBeamEntity extends Entity {
         ServerLevel level = (ServerLevel) level();
         if (damage > 0 && tickCount % 10 == 1) hurtInside(level);
         if (breakBlocks && tickCount > 2) breakSome(level);
+        // Eclairs qui frappent autour du pilier et pluie de glyphes (pilier offensif uniquement)
+        if (damage > 0 && tickCount % 8 == 4) {
+            double a = random.nextDouble() * Math.PI * 2, d = getRadius() * (1.5 + random.nextDouble() * 1.5);
+            Vec3 strike = position().add(Math.cos(a) * d, 0, Math.sin(a) * d);
+            com.aetheria.astralruin.util.Fx.lightning(level, position().add(0, getBeamHeight(), 0), strike, 0xFFF4D0, 0.4F, 8);
+            com.aetheria.astralruin.util.Fx.impact(level, strike, 1.2F, 0xFFE9A8);
+        }
+        if (damage > 0 && tickCount % 4 == 0) {
+            com.aetheria.astralruin.util.Fx.particles(level, com.aetheria.astralruin.particle.AstralParticleOptions.Kind.GLYPH,
+                    position().add(0, getBeamHeight() * 0.6, 0), 3, getRadius() * 1.5, 0.0, 0xFFD36B, 0.3F, 40);
+        }
     }
 
     private void hurtInside(ServerLevel level) {

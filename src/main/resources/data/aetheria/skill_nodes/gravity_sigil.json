@@ -1,0 +1,11 @@
+{
+  "x": -110,
+  "y": -95,
+  "cost": 3,
+  "requires": [
+    "rune_ward"
+  ],
+  "bonus": "none",
+  "amount": 0,
+  "spell": "gravity_sigil"
+}

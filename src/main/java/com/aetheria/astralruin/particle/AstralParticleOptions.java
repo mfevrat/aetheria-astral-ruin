@@ -12,16 +12,25 @@ import net.minecraft.network.FriendlyByteBuf;
 
 import java.util.Locale;
 
-/** Etincelle astrale : couleur RGB, taille et duree de vie en ticks. */
-public record AstralParticleOptions(float r, float g, float b, float scale, int lifetime) implements ParticleOptions {
+/**
+ * Options communes a toutes les particules du mod : type (texture + comportement), couleur, taille, duree.
+ * Un meme jeu d'options sert aux 6 types, chacun avec sa propre texture animee.
+ */
+public record AstralParticleOptions(ParticleType<AstralParticleOptions> type, float r, float g, float b,
+                                    float scale, int lifetime) implements ParticleOptions {
 
-    public static final Codec<AstralParticleOptions> CODEC = RecordCodecBuilder.create(i -> i.group(
-            Codec.FLOAT.fieldOf("r").forGetter(AstralParticleOptions::r),
-            Codec.FLOAT.fieldOf("g").forGetter(AstralParticleOptions::g),
-            Codec.FLOAT.fieldOf("b").forGetter(AstralParticleOptions::b),
-            Codec.FLOAT.fieldOf("scale").forGetter(AstralParticleOptions::scale),
-            Codec.INT.fieldOf("lifetime").forGetter(AstralParticleOptions::lifetime)
-    ).apply(i, AstralParticleOptions::new));
+    /** Familles de particules : chacune a ses sprites et son comportement (voir AetheriaParticle). */
+    public enum Kind { SPARK, STAR, EMBER, SMOKE, SHARD, GLYPH }
+
+    public static Codec<AstralParticleOptions> codec(ParticleType<AstralParticleOptions> type) {
+        return RecordCodecBuilder.create(i -> i.group(
+                Codec.FLOAT.fieldOf("r").forGetter(AstralParticleOptions::r),
+                Codec.FLOAT.fieldOf("g").forGetter(AstralParticleOptions::g),
+                Codec.FLOAT.fieldOf("b").forGetter(AstralParticleOptions::b),
+                Codec.FLOAT.fieldOf("scale").forGetter(AstralParticleOptions::scale),
+                Codec.INT.fieldOf("lifetime").forGetter(AstralParticleOptions::lifetime)
+        ).apply(i, (r, g, b, s, l) -> new AstralParticleOptions(type, r, g, b, s, l)));
+    }
 
     @SuppressWarnings("deprecation")
     public static final ParticleOptions.Deserializer<AstralParticleOptions> DESERIALIZER = new ParticleOptions.Deserializer<>() {
@@ -38,22 +47,28 @@ public record AstralParticleOptions(float r, float g, float b, float scale, int 
             float s = reader.readFloat();
             reader.expect(' ');
             int life = reader.readInt();
-            return new AstralParticleOptions(r, g, b, s, life);
+            return new AstralParticleOptions(type, r, g, b, s, life);
         }
 
         @Override
         public AstralParticleOptions fromNetwork(ParticleType<AstralParticleOptions> type, FriendlyByteBuf buf) {
-            return new AstralParticleOptions(buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readVarInt());
+            return new AstralParticleOptions(type, buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readFloat(), buf.readVarInt());
         }
     };
 
+    /** Etincelle losange (type historique). */
     public static AstralParticleOptions rgb(int rgb, float scale, int lifetime) {
-        return new AstralParticleOptions((rgb >> 16 & 0xFF) / 255F, (rgb >> 8 & 0xFF) / 255F, (rgb & 0xFF) / 255F, scale, lifetime);
+        return of(Kind.SPARK, rgb, scale, lifetime);
+    }
+
+    public static AstralParticleOptions of(Kind kind, int rgb, float scale, int lifetime) {
+        return new AstralParticleOptions(ModParticles.get(kind), (rgb >> 16 & 0xFF) / 255F, (rgb >> 8 & 0xFF) / 255F,
+                (rgb & 0xFF) / 255F, scale, lifetime);
     }
 
     @Override
     public ParticleType<?> getType() {
-        return ModParticles.ASTRAL_SPARK.get();
+        return type;
     }
 
     @Override

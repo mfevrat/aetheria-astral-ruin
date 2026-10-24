@@ -1,4 +1,4 @@
-# Aetheria: Astral Ruin — v1.0.0
+# Aetheria: Astral Ruin — v2.0.0
 
 Mod Forge pour **Minecraft 1.20.4** (Forge 49.x) avec **GeckoLib 4.4.4**.
 Magie cinématique à cercles runiques, trois sorts, équipement astral, un boss en deux phases et deux structures générées.
@@ -9,10 +9,10 @@ Prérequis : JDK 17 et une connexion Internet (Gradle télécharge Forge, Minecr
 
 ```bash
 ./gradlew runClient     # lance le jeu de développement (Windows : gradlew.bat runClient)
-./gradlew build         # produit build/libs/aetheria-1.0.0.jar
+./gradlew build         # produit build/libs/aetheria-2.0.0.jar
 ```
 
-Pour jouer avec le jar : installe Forge 1.20.4 (49.0.27 ou plus) et **GeckoLib 4.4.4 pour Forge 1.20.4**, puis copie `aetheria-1.0.0.jar` dans `mods/`.
+Pour jouer avec le jar : installe Forge 1.20.4 (49.0.27 ou plus) et **GeckoLib 4.4.4 pour Forge 1.20.4**, puis copie `aetheria-2.0.0.jar` dans `mods/`.
 
 Dans IntelliJ IDEA : *Open* → choisis `build.gradle` → *Open as Project*, attends l’import, puis lance la configuration `runClient`.
 
@@ -123,6 +123,69 @@ Les projectiles (cristaux de Runework Nova, lames d’éclipse) et les orbes de 
 
 Les fichiers sont dans `assets/aetheria/geo/`, `animations/` et `textures/geo/` (avec un `_glowmask.png` pour les parties lumineuses). Chaque modèle joue l’animation `animation.aetheria.idle` : tu peux tout retravailler dans Blockbench (plugin GeckoLib) sans toucher au Java, tant que ce nom d’animation est conservé.
 
+## Combat et effets (v2)
+
+### Moteur d’effets visuels
+
+Tous les effets utilisent des textures peintes propres au mod, dans `textures/vfx/` et `textures/particle/` :
+- arcs de lame ;
+- éclairs à fourches régénérés en continu ;
+- ondes de choc et implosions ;
+- faisceaux et piliers aux textures qui défilent ;
+- éclats lumineux ;
+- chaînes attachées à deux entités ;
+- trou noir translucide.
+
+Six familles de particules animées complètent l’ensemble : étincelles, étoiles scintillantes, braises, fumée du néant, éclats de cristal qui rebondissent et glyphes runiques flottants.
+
+### 14 sorts en 3 branches
+
+| Branche | Sorts |
+| --- | --- |
+| Céleste | Trait Astral, Pluie d’Étoiles, Lance Comète, Halo Solaire, **Astral Judgement** (ultime) |
+| Runique | Runework Nova, Barrière Runique, Mines Runiques, Prison de Glyphes, **Sceau de Gravité** (ultime) |
+| Éclipse | Pas d’Éclipse, Tempête de Croissants, Chaînes du Néant, **Requiem d’Éclipse** (ultime) |
+
+Chaque sort a son icône, affichée dans le HUD et dans le grimoire.
+
+### Valerius retravaillé
+
+**Le modèle** compte 112 cubes avec une texture de 512 px peinte en détail (biseaux, rivets, gravures lumineuses, plis de la cape). Il comprend :
+- un casque à cornes et une visière lumineuse ;
+- une couronne de runes flottantes ;
+- une cape en trois segments animés ;
+- un double halo ;
+- des boucliers runiques en orbite ;
+- des ailes de lumière en phase 2.
+
+**Les animations** sont au nombre de 14.
+
+**Les cinématiques** sont au nombre de trois, avec caméra scénarisée, bandes noires et titres :
+- l’apparition, depuis le pilier de lumière jusqu’au rugissement ;
+- le passage en Forme Libérée ;
+- la mort.
+
+Les déplacements et le HUD sont bloqués pendant ces séquences. La touche *Sauter* permet de les passer, et l’option `bossCinematics` de les désactiver.
+
+**Les 11 attaques** se répartissent ainsi :
+- Phase 1 :
+  - combo de trois coups avec arcs de lame ;
+  - saut écrasant, dont l’onde s’esquive en sautant ;
+  - pièges runiques ;
+  - charge d’Éclipse ;
+  - lames spectrales qui visent puis fondent sur leur cible ;
+  - tourbillon qui aspire.
+- Phase 2 :
+  - pluie de météores enflammés ;
+  - faisceau continu texturé ;
+  - croix de piliers de lumière ;
+  - puits gravitationnel ;
+  - pluie de jugement qui suit chaque joueur ;
+  - lames spectrales ;
+  - orbes de soutien.
+
+**La rage** se déclenche à 15 % de PV : rugissement, attaques accélérées, et l’arène se referme. Rester hors du cercle brûle.
+
 ## Personnaliser par datapack (sans recompiler)
 
 Toutes ces données se rechargent avec `/reload`.
@@ -134,7 +197,7 @@ Toutes ces données se rechargent avec `/reload`.
   ```
 
   Les bonus possibles sont `max_mana`, `mana_regen`, `spell_power`, `backlash_resistance` et `none`. La clé `"spell"` débloque un sort (`astral_bolt`, `runework_nova` ou `astral_judgement`). Pensez à ajouter les clés de traduction `skill.aetheria.<id>` et `skill.aetheria.<id>.desc`.
-- **Valerius** : `data/aetheria/bosses/valerius.json` règle PV, armure, vitesse, seuil de phase 2, transition, orbes (seuils, PV, soin, délai) et chaque attaque (poids, portée, recharge, télégraphie, dégâts, rayon, nombre, durée, vitesse de rotation du faisceau). Une clé absente garde sa valeur par défaut, et un fichier invalide est signalé dans les logs puis ignoré.
+- **Valerius** : `data/aetheria/bosses/valerius.json` règle PV, armure, vitesse, seuil de phase 2, durée de l’apparition, transition, rage (seuil, accélération, rayon de l’arène), orbes (seuils, PV, soin, délai) et chacune des 11 attaques (poids, portée, recharge, télégraphie, dégâts, rayon, nombre, durée, vitesse de rotation du faisceau). Une clé absente garde sa valeur par défaut, et un fichier invalide est signalé dans les logs puis ignoré.
 
 ## Configuration
 

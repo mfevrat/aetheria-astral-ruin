@@ -13,6 +13,14 @@ public final class ClientPacketHandler {
         RuneCircleManager.add(new RuneCircleEmitter(msg.center(), msg.normal(), msg.preset(), msg.radius(), msg.duration()));
     }
 
+    public static void spawnVfx(com.aetheria.astralruin.network.SpawnVfxS2C msg) {
+        com.aetheria.astralruin.client.vfx.VfxManager.add(msg);
+    }
+
+    public static void cinematic(com.aetheria.astralruin.network.CinematicS2C msg) {
+        com.aetheria.astralruin.client.cinematic.CinematicManager.start(msg.type(), msg.entityId());
+    }
+
     public static void shake(CameraShakeS2C msg) {
         CameraShakeHandler.shake(msg.power(), msg.ticks());
     }

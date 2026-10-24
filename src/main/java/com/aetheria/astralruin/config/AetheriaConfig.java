@@ -15,6 +15,7 @@ public final class AetheriaConfig {
     public static final ForgeConfigSpec.BooleanValue SHOW_AURA;
     public static final ForgeConfigSpec.BooleanValue RENDER_DECALS;
     public static final ForgeConfigSpec.BooleanValue BOSS_MUSIC;
+    public static final ForgeConfigSpec.BooleanValue CINEMATICS;
 
     static {
         ForgeConfigSpec.Builder common = new ForgeConfigSpec.Builder();
@@ -45,6 +46,8 @@ public final class AetheriaConfig {
                 .define("renderCircleDecals", true);
         BOSS_MUSIC = client.comment("Jouer la musique de combat pres de Valerius.")
                 .define("bossMusic", true);
+        CINEMATICS = client.comment("Jouer les cinematiques de Valerius (apparition, phase 2, mort).")
+                .define("bossCinematics", true);
         client.pop();
         CLIENT_SPEC = client.build();
     }

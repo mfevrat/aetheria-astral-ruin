@@ -28,6 +28,10 @@ public final class ModItems {
     public static final RegistryObject<Item> ECLIPSE_SLASH = ITEMS.register("eclipse_slash",
             () -> new AnimatedItem("eclipse_slash", new Item.Properties()));
 
+    /** Objet technique : modele 3D des lames spectrales de Valerius. */
+    public static final RegistryObject<Item> SPECTRAL_BLADE = ITEMS.register("spectral_blade",
+            () -> new AnimatedItem("spectral_blade", new Item.Properties()));
+
     // Equipements
     public static final RegistryObject<Item> ASTRAL_GRIMOIRE = ITEMS.register("astral_grimoire",
             () -> new GrimoireItem(new Item.Properties().stacksTo(1).rarity(Rarity.UNCOMMON)));

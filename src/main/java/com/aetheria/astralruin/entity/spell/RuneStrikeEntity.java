@@ -21,9 +21,13 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.UUID;
 
-/** Zone telegraphiee qui explose apres un delai : pieges runiques (phase 1) et meteores (phase 2). */
+/**
+ * Zone telegraphiee qui frappe apres un delai :
+ * TRAP (piege runique), METEOR (boule de feu), STAR (etoile filante), PILLAR (colonne de lumiere),
+ * MINE (mine runique armee qui explose au passage d'un ennemi).
+ */
 public class RuneStrikeEntity extends Entity {
-    public enum Kind { TRAP, METEOR }
+    public enum Kind { TRAP, METEOR, STAR, PILLAR, MINE }
 
     private Kind kind = Kind.TRAP;
     private int delay = 30;
@@ -37,6 +41,7 @@ public class RuneStrikeEntity extends Entity {
         this.setNoGravity(true);
     }
 
+    /** Pour MINE, delay = duree de vie de la mine (elle s'arme apres 20 ticks). */
     public static RuneStrikeEntity create(ServerLevel level, Vec3 pos, Kind kind, int delay, float damage,
                                           float radius, @Nullable Entity owner) {
         RuneStrikeEntity e = new RuneStrikeEntity(ModEntities.RUNE_STRIKE.get(), level);
@@ -57,44 +62,92 @@ public class RuneStrikeEntity extends Entity {
         super.tick();
         if (level().isClientSide()) return;
         ServerLevel level = (ServerLevel) level();
+        Entity owner = ownerId == null ? null : level.getEntity(ownerId);
 
         if (tickCount == 1) {
-            Fx.groundCircle(level, position(), kind == Kind.TRAP ? RuneCirclePreset.TRAP : RuneCirclePreset.METEOR,
-                    radius, delay + 2);
+            RuneCirclePreset preset = switch (kind) {
+                case TRAP, MINE -> RuneCirclePreset.TRAP;
+                case METEOR -> RuneCirclePreset.METEOR;
+                case STAR, PILLAR -> RuneCirclePreset.TELEGRAPH;
+            };
+            Fx.groundCircle(level, position(), preset, kind == Kind.MINE ? 1.2F : radius, delay + 2);
+            if (kind == Kind.MINE) level.playSound(null, blockPosition(), ModSounds.MINE_ARM.get(), SoundSource.PLAYERS, 0.8F, 1.4F);
         }
-        if (kind == Kind.METEOR && tickCount > delay - 12) {
-            double h = (delay - tickCount) * 2.5;
-            level.sendParticles(AstralParticleOptions.rgb(0xFFB347, 0.4F, 6),
-                    getX(), getY() + h, getZ(), 6, 0.3, 0.3, 0.3, 0.02);
+
+        switch (kind) {
+            case METEOR -> {
+                int fall = 16;
+                if (tickCount == delay - fall) level.playSound(null, getX(), getY(), getZ(), ModSounds.METEOR_FALL.get(), SoundSource.HOSTILE, 1.5F, 1F);
+                if (tickCount > delay - fall) {
+                    double h = (delay - tickCount) * 2.2;
+                    Vec3 p = position().add(h * 0.35, h, h * 0.2);
+                    Fx.particles(level, AstralParticleOptions.Kind.EMBER, p, 8, 0.4, 0.04, 0xFF9A3C, 0.35F, 16);
+                    Fx.particles(level, AstralParticleOptions.Kind.SMOKE, p, 3, 0.3, 0.02, 0x40202A, 0.9F, 30);
+                    Fx.particles(level, AstralParticleOptions.Kind.STAR, p, 1, 0.1, 0, 0xFFF0C0, 0.9F, 4);
+                }
+            }
+            case STAR -> {
+                if (tickCount > delay - 10) {
+                    double h = (delay - tickCount) * 3.0;
+                    Fx.particles(level, AstralParticleOptions.Kind.STAR, position().add(-h * 0.3, h, 0), 2, 0.05, 0, 0xFFF4D0, 0.5F, 6);
+                    Fx.particles(level, AstralParticleOptions.Kind.EMBER, position().add(-h * 0.3, h, 0), 3, 0.1, 0.02, 0xFFD36B, 0.18F, 10);
+                }
+            }
+            case PILLAR -> {
+                if (tickCount == delay - 4) Fx.lightning(level, position().add(0, 24, 0), position(), 0xFFF4D0, 0.5F, 8);
+            }
+            case MINE -> {
+                if (tickCount % 10 == 0) Fx.particles(level, AstralParticleOptions.Kind.GLYPH, position().add(0, 0.3, 0), 1, 0.3, 0.01, 0xB03CFF, 0.2F, 20);
+                if (tickCount > 20) {
+                    boolean triggered = !level.getEntitiesOfClass(LivingEntity.class, getBoundingBox().inflate(1.6, 1.5, 1.6),
+                            e -> e.isAlive() && e != owner && (owner == null || !e.isAlliedTo(owner))).isEmpty();
+                    if (triggered) {
+                        explode(level, owner);
+                        discard();
+                        return;
+                    }
+                }
+            }
+            default -> {}
         }
+
         if (tickCount >= delay) {
-            explode(level);
+            if (kind != Kind.MINE) explode(level, owner);
             discard();
         }
     }
 
-    private void explode(ServerLevel level) {
-        Entity owner = ownerId == null ? null : level.getEntity(ownerId);
+    private void explode(ServerLevel level, @Nullable Entity owner) {
         for (LivingEntity e : level.getEntitiesOfClass(LivingEntity.class, getBoundingBox().inflate(radius, 2, radius),
                 LivingEntity::isAlive)) {
-            if (e == owner || e instanceof ValeriusOrbEntity) continue;
+            if (e == owner || e instanceof ValeriusOrbEntity || (owner != null && e.isAlliedTo(owner))) continue;
             double dx = e.getX() - getX(), dz = e.getZ() - getZ();
             if (dx * dx + dz * dz > radius * radius) continue;
+            e.invulnerableTime = 0;
             e.hurt(damageSources().indirectMagic(this, owner), damage);
             if (kind == Kind.METEOR) e.setSecondsOnFire(3);
+            if (kind == Kind.MINE) e.setDeltaMovement(e.getDeltaMovement().add(0, 0.6, 0));
         }
-        int color = kind == Kind.TRAP ? 0xB03CFF : 0xFFB347;
-        Fx.burst(level, position().add(0, 0.3, 0), color, 30, 0.3F);
-        Fx.ring(level, position().add(0, 0.1, 0), radius, color, 24);
-        Fx.shake(level, position(), 0.25F, 8, 12);
-        level.playSound(null, getX(), getY(), getZ(), ModSounds.RUNE_EXPLODE.get(), SoundSource.HOSTILE, 1.2F,
-                kind == Kind.TRAP ? 1.0F : 0.7F);
+        int color = switch (kind) {
+            case TRAP, MINE -> 0xB03CFF;
+            case METEOR -> 0xFF8A30;
+            case STAR -> 0xFFE9A8;
+            case PILLAR -> 0xFFF4D0;
+        };
+        Fx.impact(level, position(), radius, color);
+        if (kind == Kind.PILLAR) Fx.pillar(level, position(), 18F, radius * 0.6F, color, 16);
+        if (kind == Kind.METEOR) {
+            Fx.particles(level, AstralParticleOptions.Kind.SMOKE, position().add(0, 0.5, 0), 12, radius * 0.4, 0.05, 0x3A2030, 1.2F, 40);
+            Fx.shake(level, position(), 0.4F, 10, 18);
+        } else {
+            Fx.shake(level, position(), 0.2F, 8, 12);
+        }
+        level.playSound(null, getX(), getY(), getZ(), kind == Kind.PILLAR || kind == Kind.STAR ? ModSounds.THUNDER.get()
+                : ModSounds.RUNE_EXPLODE.get(), SoundSource.HOSTILE, 1.2F, kind == Kind.STAR ? 1.6F : kind == Kind.METEOR ? 0.7F : 1F);
     }
 
     @Override
-    public boolean shouldBeSaved() {
-        return false;
-    }
+    public boolean shouldBeSaved() { return false; }
 
     @Override
     protected void readAdditionalSaveData(CompoundTag tag) {}

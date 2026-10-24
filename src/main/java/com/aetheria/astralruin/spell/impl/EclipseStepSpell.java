@@ -47,6 +47,11 @@ public class EclipseStepSpell extends AbstractSpell {
 
         Fx.groundCircle(level, start, RuneCirclePreset.NOVA, 1.2F, 14);
         Fx.line(level, start.add(0, 1, 0), dest.add(0, 1, 0), Fx.PINK, 0.22F, 0.35);
+        for (double k = 0.2; k < 1.0; k += 0.27) {
+            Vec3 p = start.lerp(dest, k).add(0, 1, 0);
+            Fx.slash(level, p, dir, 70F + (float) k * 60F, 1.6F, Fx.PINK, 8);
+            Fx.particles(level, com.aetheria.astralruin.particle.AstralParticleOptions.Kind.SMOKE, p, 4, 0.3, 0.01, 0x2A1048, 0.7F, 24);
+        }
         caster.teleportTo(dest.x, dest.y, dest.z);
         caster.fallDistance = 0;
         Fx.groundCircle(level, dest, RuneCirclePreset.NOVA, 1.5F, 18);

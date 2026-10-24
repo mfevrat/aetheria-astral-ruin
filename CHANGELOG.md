@@ -1,5 +1,25 @@
 # Changelog
 
+## 2.0.0 — combat spectaculaire et boss cinématique
+- **Moteur d’effets visuels** (paquet `SpawnVfxS2C`, rendu additif). Il propose 8 effets : arc de lame, éclair, onde, implosion, faisceau, pilier, éclat et chaîne.
+- **Textures et particules** :
+  - 8 textures d’effets peintes ;
+  - 6 familles de particules animées, soit 37 sprites inédits ;
+  - 14 icônes de sorts.
+- **9 nouveaux sorts** : Pluie d’Étoiles, Lance Comète, Halo Solaire, Mines Runiques, Prison de Glyphes, Sceau de Gravité, Tempête de Croissants, Chaînes du Néant, Requiem d’Éclipse.
+- **Les 5 sorts existants** reçoivent de nouveaux effets (arcs, éclairs, flares, glyphes).
+- **Astral Judgement** : nouveau pilier texturé à trois couches, avec éclairs autour de l’impact.
+- **Arbre runique** réorganisé en trois branches complètes (21 nœuds).
+- **Valerius entièrement refait** :
+  - modèle de 112 cubes avec UV par face et texture de 512 px ;
+  - 14 animations ;
+  - 11 attaques et rage finale ;
+  - arène qui se referme ;
+  - compte à rebours du Jugement Absolu.
+- **Cinématiques** d’apparition, de phase 2 et de mort, avec caméra scénarisée, bandes noires et titres. Elles se passent avec Sauter et se désactivent dans la config client.
+- **Nouvelles entités** : comète, halo solaire, prison de glyphes, puits gravitationnel, lame spectrale. Les frappes runiques gagnent l’étoile filante, la mine et le pilier.
+- **8 nouveaux sons** : tranchant, tonnerre, chaînes, gravité, météore, mine, rugissement, impact.
+
 ## 1.0.0 — contenu complet
 - **Branche Runique** : sort *Barrière Runique* (absorption, résistance, onde qui repousse les monstres, 3 cercles verticaux).
 - **Branche Éclipse** : passif *Faim d’Éclipse* (vol de mana au corps à corps) et sort *Pas d’Éclipse* (bond tranchant de 8 blocs).

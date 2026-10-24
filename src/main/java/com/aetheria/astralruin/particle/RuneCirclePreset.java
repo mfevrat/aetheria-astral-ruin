@@ -38,6 +38,11 @@ public enum RuneCirclePreset {
     BARRIER(false, List.of(
             new Ring(Ring.Kind.CIRCLE, 1.00F, 0, 0, 0.10F, 0.0F, 0x9B5CFF),
             new Ring(Ring.Kind.RUNES, 0.82F, 8, 0, -0.12F, 0.0F, 0xFFD36B))),
+    ECLIPSE(false, List.of(
+            new Ring(Ring.Kind.CIRCLE, 1.00F, 0, 0, -0.03F, 0.0F, 0x6A2FD0),
+            new Ring(Ring.Kind.STAR, 0.92F, 8, 3, 0.04F, 0.0F, 0xE07CFF),
+            new Ring(Ring.Kind.RUNES, 0.70F, 12, 0, -0.06F, 0.0F, 0xB98CFF),
+            new Ring(Ring.Kind.CIRCLE, 0.40F, 0, 0, 0.08F, 0.02F, 0xFFFFFF))),
     SHOCKWAVE(true, List.of(
             new Ring(Ring.Kind.CIRCLE, 1.00F, 0, 0, 0.0F, 0.0F, 0xFFFFFF),
             new Ring(Ring.Kind.CIRCLE, 0.85F, 0, 0, 0.0F, 0.0F, 0xFFD36B)));

@@ -56,5 +56,72 @@
         "stream": true
       }
     ]
+  },
+  "spell.slash": {
+    "subtitle": "subtitles.aetheria.spell.slash",
+    "sounds": [
+      {
+        "name": "aetheria:slash"
+      }
+    ]
+  },
+  "spell.thunder": {
+    "subtitle": "subtitles.aetheria.spell.thunder",
+    "sounds": [
+      {
+        "name": "aetheria:thunder",
+        "attenuation_distance": 48
+      }
+    ]
+  },
+  "spell.chains": {
+    "subtitle": "subtitles.aetheria.spell.chains",
+    "sounds": [
+      {
+        "name": "aetheria:chains"
+      }
+    ]
+  },
+  "spell.gravity": {
+    "subtitle": "subtitles.aetheria.spell.gravity",
+    "sounds": [
+      {
+        "name": "aetheria:gravity"
+      }
+    ]
+  },
+  "spell.meteor_fall": {
+    "subtitle": "subtitles.aetheria.spell.meteor_fall",
+    "sounds": [
+      {
+        "name": "aetheria:meteor_fall"
+      }
+    ]
+  },
+  "spell.mine_arm": {
+    "subtitle": "subtitles.aetheria.spell.mine_arm",
+    "sounds": [
+      {
+        "name": "aetheria:mine_arm"
+      }
+    ]
+  },
+  "entity.valerius.roar": {
+    "subtitle": "subtitles.aetheria.entity.valerius.roar",
+    "sounds": [
+      {
+        "name": "aetheria:valerius_roar",
+        "attenuation_distance": 48
+      }
+    ]
+  },
+  "entity.valerius.slam": {
+    "subtitle": "subtitles.aetheria.entity.valerius.slam",
+    "sounds": [
+      {
+        "name": "aetheria:valerius_slam",
+        "attenuation_distance": 48
+      }
+    ]
   }
 }

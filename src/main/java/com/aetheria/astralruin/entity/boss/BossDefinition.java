@@ -30,7 +30,11 @@ public final class BossDefinition {
 
     public float maxHealth = 600, armor = 12, armorToughness = 4, movementSpeed = 0.28F;
     public float phase2Threshold = 0.5F;
-    public int transitionTicks = 100;
+    public int transitionTicks = 120;
+    public int introTicks = 140;
+    public float enrageThreshold = 0.15F;
+    public float enrageCooldownMultiplier = 0.6F;
+    public float arenaRadius = 22F;
     public float transitionPushRadius = 8;
     public List<Float> orbThresholds = List.of(0.4F, 0.2F);
     public float orbHealth = 40, orbHealPerSecond = 2;
@@ -47,6 +51,12 @@ public final class BossDefinition {
         attacks.put("eclipse_charge", new AttackDef(2, 6, 16, 240, 15, 16, 0, 1, 12, 0));
         attacks.put("meteors", new AttackDef(4, 0, 30, 200, 10, 10, 2, 8, 40, 0));
         attacks.put("energy_beam", new AttackDef(3, 3, 30, 300, 25, 4, 0, 1, 80, 2));
+        attacks.put("ground_slam", new AttackDef(3, 3, 14, 200, 12, 12, 12, 1, 40, 0));
+        attacks.put("rune_blades", new AttackDef(3, 4, 26, 220, 10, 8, 0, 5, 60, 0));
+        attacks.put("whirlwind", new AttackDef(2, 0, 6, 260, 12, 5, 6, 1, 40, 0));
+        attacks.put("starfall_cross", new AttackDef(3, 0, 30, 260, 15, 10, 1.4F, 10, 40, 0));
+        attacks.put("gravity_well", new AttackDef(2, 0, 30, 400, 15, 14, 8, 1, 60, 0));
+        attacks.put("judgement_rain", new AttackDef(3, 0, 40, 300, 10, 10, 2, 3, 75, 0));
     }
 
     public static BossDefinition valerius() { return valerius; }
@@ -68,6 +78,13 @@ public final class BossDefinition {
             d.movementSpeed = GsonHelper.getAsFloat(a, "movement_speed", d.movementSpeed);
         }
         d.phase2Threshold = GsonHelper.getAsFloat(root, "phase_2_threshold", d.phase2Threshold);
+        d.introTicks = GsonHelper.getAsInt(root, "intro_ticks", d.introTicks);
+        if (root.has("enrage")) {
+            JsonObject e = GsonHelper.getAsJsonObject(root, "enrage");
+            d.enrageThreshold = GsonHelper.getAsFloat(e, "threshold", d.enrageThreshold);
+            d.enrageCooldownMultiplier = GsonHelper.getAsFloat(e, "cooldown_multiplier", d.enrageCooldownMultiplier);
+            d.arenaRadius = GsonHelper.getAsFloat(e, "arena_radius", d.arenaRadius);
+        }
         if (root.has("transition")) {
             JsonObject t = GsonHelper.getAsJsonObject(root, "transition");
             d.transitionTicks = GsonHelper.getAsInt(t, "duration", d.transitionTicks);

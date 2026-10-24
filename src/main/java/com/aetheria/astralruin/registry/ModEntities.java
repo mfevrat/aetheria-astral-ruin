@@ -40,5 +40,31 @@ public final class ModEntities {
                     .sized(0.5F, 0.1F).fireImmune().noSummon().clientTrackingRange(8).updateInterval(20)
                     .build("rune_strike"));
 
+    public static final RegistryObject<EntityType<CometEntity>> COMET = ENTITIES.register("comet",
+            () -> EntityType.Builder.<CometEntity>of(CometEntity::new, MobCategory.MISC)
+                    .sized(0.5F, 0.5F).clientTrackingRange(8).updateInterval(2).build("comet"));
+
+    public static final RegistryObject<EntityType<SolarHaloEntity>> SOLAR_HALO = ENTITIES.register("solar_halo",
+            () -> EntityType.Builder.<SolarHaloEntity>of(SolarHaloEntity::new, MobCategory.MISC)
+                    .sized(0.5F, 0.5F).fireImmune().noSummon().clientTrackingRange(8).updateInterval(5).build("solar_halo"));
+
+    public static final RegistryObject<EntityType<GlyphPrisonEntity>> GLYPH_PRISON = ENTITIES.register("glyph_prison",
+            () -> EntityType.Builder.<GlyphPrisonEntity>of(GlyphPrisonEntity::new, MobCategory.MISC)
+                    .sized(0.5F, 0.5F).fireImmune().noSummon().clientTrackingRange(8).updateInterval(10).build("glyph_prison"));
+
+    public static final RegistryObject<EntityType<GravityWellEntity>> GRAVITY_WELL = ENTITIES.register("gravity_well",
+            () -> EntityType.Builder.<GravityWellEntity>of(GravityWellEntity::new, MobCategory.MISC)
+                    .sized(1.0F, 1.0F).fireImmune().noSummon().clientTrackingRange(10).updateInterval(20).build("gravity_well"));
+
+    public static final RegistryObject<EntityType<SpectralBladeEntity>> SPECTRAL_BLADE = ENTITIES.register("spectral_blade",
+            () -> EntityType.Builder.<SpectralBladeEntity>of(SpectralBladeEntity::new, MobCategory.MISC)
+                    .sized(0.5F, 0.5F).clientTrackingRange(8).updateInterval(2).build("spectral_blade"));
+
+    /** Camera des cinematiques : jamais ajoutee au monde, creee cote client uniquement. */
+    public static final RegistryObject<EntityType<com.aetheria.astralruin.entity.CinematicCameraEntity>> CINEMATIC_CAMERA =
+            ENTITIES.register("cinematic_camera", () -> EntityType.Builder.<com.aetheria.astralruin.entity.CinematicCameraEntity>of(
+                    com.aetheria.astralruin.entity.CinematicCameraEntity::new, MobCategory.MISC)
+                    .sized(0.1F, 0.1F).noSummon().clientTrackingRange(0).build("cinematic_camera"));
+
     private ModEntities() {}
 }

@@ -1,0 +1,11 @@
+{
+  "x": -55,
+  "y": 170,
+  "cost": 2,
+  "requires": [
+    "eclipse_step"
+  ],
+  "bonus": "none",
+  "amount": 0,
+  "spell": "void_chains"
+}

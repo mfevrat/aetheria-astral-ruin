@@ -68,6 +68,12 @@ public final class CastingManager {
             return;
         }
 
+        String problem = spell.precheck(player);
+        if (problem != null) {
+            fail(player, problem);
+            return;
+        }
+
         float max = data.maxMana(player);
         float costMult = player.getMainHandItem().getItem() instanceof com.aetheria.astralruin.item.StaffItem staff
                 ? staff.costMultiplier() : 1F;

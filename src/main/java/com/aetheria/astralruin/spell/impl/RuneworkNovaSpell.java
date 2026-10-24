@@ -60,12 +60,18 @@ public class RuneworkNovaSpell extends AbstractSpell {
             e.hurt(level.damageSources().indirectMagic(caster, caster), 8F * ctx.power);
             e.push(look.x * 1.8, 0.4, look.z * 1.8);
             e.hurtMarked = true;
+            Fx.lightning(level, caster.getEyePosition().add(look.scale(3)), e.position().add(0, e.getBbHeight() * 0.5, 0), 0xD9B8FF, 0.3F, 8);
         }
 
         Vec3 front = caster.getEyePosition().add(look);
         Fx.circle(level, front, new Vector3f((float) look.x, (float) look.y, (float) look.z),
                 RuneCirclePreset.SHOCKWAVE, 6F, 10);
         Fx.burst(level, front, Fx.PINK, 40, 0.35F);
+        Fx.slash(level, front.add(look.scale(1.5)), look, 0F, 3.5F, Fx.PINK, 10);
+        Fx.slash(level, front.add(look.scale(1.5)), look, 35F, 3.0F, Fx.VIOLET, 12);
+        Fx.slash(level, front.add(look.scale(1.5)), look, -35F, 3.0F, 0xFFFFFF, 12);
+        Fx.flare(level, front.add(look.scale(2)), 2.5F, 0xD9B8FF, 10);
+        Fx.particles(level, com.aetheria.astralruin.particle.AstralParticleOptions.Kind.GLYPH, front, 20, 1.0, 0.15, 0xFFD36B, 0.25F, 25);
         Fx.shake(level, origin, 0.35F, 12, 24);
         level.playSound(null, caster.blockPosition(), ModSounds.NOVA_BURST.get(), SoundSource.PLAYERS, 1.2F, 1.0F);
 

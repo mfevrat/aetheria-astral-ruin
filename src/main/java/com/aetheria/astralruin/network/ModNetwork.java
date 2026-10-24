@@ -42,6 +42,12 @@ public final class ModNetwork {
         CHANNEL.messageBuilder(SkillTreeSyncS2C.class, NetworkDirection.PLAY_TO_CLIENT)
                 .encoder(SkillTreeSyncS2C::encode).decoder(SkillTreeSyncS2C::new)
                 .consumerMainThread(SkillTreeSyncS2C::handle).add();
+        CHANNEL.messageBuilder(SpawnVfxS2C.class, NetworkDirection.PLAY_TO_CLIENT)
+                .encoder(SpawnVfxS2C::encode).decoder(SpawnVfxS2C::new)
+                .consumerMainThread(SpawnVfxS2C::handle).add();
+        CHANNEL.messageBuilder(CinematicS2C.class, NetworkDirection.PLAY_TO_CLIENT)
+                .encoder(CinematicS2C::encode).decoder(CinematicS2C::new)
+                .consumerMainThread(CinematicS2C::handle).add();
         CHANNEL.messageBuilder(CameraShakeS2C.class, NetworkDirection.PLAY_TO_CLIENT)
                 .encoder(CameraShakeS2C::encode).decoder(CameraShakeS2C::new)
                 .consumerMainThread(CameraShakeS2C::handle).add();

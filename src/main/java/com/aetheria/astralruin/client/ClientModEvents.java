@@ -2,7 +2,8 @@ package com.aetheria.astralruin.client;
 
 import com.aetheria.astralruin.Aetheria;
 import com.aetheria.astralruin.client.gui.ManaHudOverlay;
-import com.aetheria.astralruin.client.particle.AstralSparkParticle;
+import com.aetheria.astralruin.client.particle.AetheriaParticle;
+import com.aetheria.astralruin.particle.AstralParticleOptions.Kind;
 import com.aetheria.astralruin.client.render.AstralBeamRenderer;
 import com.aetheria.astralruin.client.render.ValeriusOrbRenderer;
 import com.aetheria.astralruin.client.render.ValeriusRenderer;
@@ -35,12 +36,24 @@ public final class ClientModEvents {
         event.registerEntityRenderer(ModEntities.MANA_CRYSTAL.get(), ctx -> new ThrownItemRenderer<>(ctx, 1.0F, true));
         event.registerEntityRenderer(ModEntities.ECLIPSE_SLASH.get(), ctx -> new ThrownItemRenderer<>(ctx, 2.2F, true));
         event.registerEntityRenderer(ModEntities.RUNE_STRIKE.get(), NoopRenderer::new);
+        event.registerEntityRenderer(ModEntities.COMET.get(), ctx -> new com.aetheria.astralruin.client.render.GlowSpriteRenderer<>(
+                ctx, com.aetheria.astralruin.Aetheria.id("textures/vfx/flare.png"), 1.3F, 0xFFC070));
+        event.registerEntityRenderer(ModEntities.SOLAR_HALO.get(), com.aetheria.astralruin.client.render.SolarHaloRenderer::new);
+        event.registerEntityRenderer(ModEntities.GLYPH_PRISON.get(), NoopRenderer::new);
+        event.registerEntityRenderer(ModEntities.GRAVITY_WELL.get(), com.aetheria.astralruin.client.render.GravityWellRenderer::new);
+        event.registerEntityRenderer(ModEntities.SPECTRAL_BLADE.get(), com.aetheria.astralruin.client.render.SpectralBladeRenderer::new);
+        event.registerEntityRenderer(ModEntities.CINEMATIC_CAMERA.get(), NoopRenderer::new);
         event.registerBlockEntityRenderer(ModBlockEntities.ASTRAL_ALTAR.get(), ctx -> new AstralAltarRenderer());
     }
 
     @SubscribeEvent
     public static void registerParticles(RegisterParticleProvidersEvent event) {
-        event.registerSpriteSet(ModParticles.ASTRAL_SPARK.get(), AstralSparkParticle.Provider::new);
+        event.registerSpriteSet(ModParticles.ASTRAL_SPARK.get(), s -> new AetheriaParticle.Provider(s, Kind.SPARK));
+        event.registerSpriteSet(ModParticles.STAR_FLARE.get(), s -> new AetheriaParticle.Provider(s, Kind.STAR));
+        event.registerSpriteSet(ModParticles.EMBER.get(), s -> new AetheriaParticle.Provider(s, Kind.EMBER));
+        event.registerSpriteSet(ModParticles.VOID_SMOKE.get(), s -> new AetheriaParticle.Provider(s, Kind.SMOKE));
+        event.registerSpriteSet(ModParticles.SHARD.get(), s -> new AetheriaParticle.Provider(s, Kind.SHARD));
+        event.registerSpriteSet(ModParticles.RUNE_GLYPH.get(), s -> new AetheriaParticle.Provider(s, Kind.GLYPH));
     }
 
     @SubscribeEvent
@@ -53,6 +66,7 @@ public final class ClientModEvents {
     @SubscribeEvent
     public static void registerOverlays(RegisterGuiOverlaysEvent event) {
         event.registerAboveAll("mana_hud", ManaHudOverlay.INSTANCE);
+        event.registerAboveAll("cinematic", com.aetheria.astralruin.client.cinematic.CinematicManager.OVERLAY);
     }
 
     @SubscribeEvent

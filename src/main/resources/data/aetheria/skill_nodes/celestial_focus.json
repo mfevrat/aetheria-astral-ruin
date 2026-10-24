@@ -1,6 +1,6 @@
 {
-  "x": 80,
-  "y": -10,
+  "x": 70,
+  "y": 0,
   "cost": 1,
   "requires": [
     "astral_bolt"

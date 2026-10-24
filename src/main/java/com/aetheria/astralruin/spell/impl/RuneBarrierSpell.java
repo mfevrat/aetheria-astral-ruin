@@ -27,6 +27,7 @@ public class RuneBarrierSpell extends AbstractSpell {
     @Override
     public void onCastStart(ServerPlayer caster, CastContext ctx) {
         ServerLevel level = caster.serverLevel();
+        Fx.implosion(level, caster.position(), 6F, Fx.VIOLET, ctx.castTicks + 4);
         Vec3 chest = caster.position().add(0, 1.0, 0);
         Vector3f[] normals = {new Vector3f(1, 0, 0), new Vector3f(0, 0, 1), new Vector3f(0.7F, 0, 0.7F)};
         for (Vector3f n : normals) Fx.circle(level, chest, n, RuneCirclePreset.BARRIER, 1.7F, ctx.castTicks + 40);
@@ -49,6 +50,8 @@ public class RuneBarrierSpell extends AbstractSpell {
         }
         Fx.groundCircle(level, caster.position(), RuneCirclePreset.SHOCKWAVE, (float) PUSH_RADIUS + 1, 10);
         Fx.burst(level, caster.position().add(0, 1, 0), Fx.VIOLET, 40, 0.3F);
+        Fx.flare(level, caster.position().add(0, 1, 0), 2.4F, 0xC8A8FF, 10);
+        Fx.particles(level, com.aetheria.astralruin.particle.AstralParticleOptions.Kind.GLYPH, caster.position().add(0, 1, 0), 24, 1.2, 0.05, 0xFFD36B, 0.25F, 30);
         level.playSound(null, caster.blockPosition(), ModSounds.CRYSTAL_RESONANCE.get(), SoundSource.PLAYERS, 1.2F, 0.8F);
         return false;
     }

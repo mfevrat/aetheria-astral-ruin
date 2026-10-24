@@ -26,6 +26,8 @@ public final class ClientForgeEvents {
         CameraShakeHandler.tick();
         RuneCircleManager.tick();
         BossMusicManager.tick();
+        com.aetheria.astralruin.client.vfx.VfxManager.tick();
+        com.aetheria.astralruin.client.cinematic.CinematicManager.tick();
         if (mc.player == null || mc.level == null) return;
 
         if (mc.screen == null) {
@@ -41,6 +43,7 @@ public final class ClientForgeEvents {
         if (event.getStage() != RenderLevelStageEvent.Stage.AFTER_PARTICLES) return;
         MultiBufferSource.BufferSource buffers = Minecraft.getInstance().renderBuffers().bufferSource();
         RuneCircleManager.render(event.getPoseStack(), buffers, event.getCamera().getPosition(), event.getPartialTick());
+        com.aetheria.astralruin.client.vfx.VfxManager.render(event.getPoseStack(), buffers, event.getCamera(), event.getPartialTick());
         buffers.endBatch();
     }
 

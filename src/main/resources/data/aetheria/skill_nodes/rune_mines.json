@@ -1,0 +1,11 @@
+{
+  "x": -135,
+  "y": 30,
+  "cost": 1,
+  "requires": [
+    "runework_nova"
+  ],
+  "bonus": "none",
+  "amount": 0,
+  "spell": "rune_mines"
+}

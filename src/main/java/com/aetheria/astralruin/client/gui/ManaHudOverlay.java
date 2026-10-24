@@ -50,6 +50,9 @@ public final class ManaHudOverlay implements IGuiOverlay {
             Component name = Component.translatable("spell.aetheria." + spellId);
             int cd = data.cooldownRemaining(spellId, mc.level.getGameTime());
             int color = cd > 0 ? 0xFF8A8A8A : 0xFFFFD36B;
+            g.blit(com.aetheria.astralruin.Aetheria.id("textures/gui/spells/" + spellId + ".png"), x - 20, y - 14, 18, 18,
+                    0F, 0F, 32, 32, 32, 32);
+            if (cd > 0) g.fill(x - 20, y - 14, x - 2, y + 4, 0x90000000);
             g.drawString(mc.font, name, x, y - 21, color, true);
             if (cd > 0) {
                 String s = String.format("%.1fs", cd / 20F);

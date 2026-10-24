@@ -7,7 +7,7 @@
   },
   "phase_2_threshold": 0.5,
   "transition": {
-    "duration": 100,
+    "duration": 120,
     "push_radius": 8
   },
   "orbs": {
@@ -27,10 +27,10 @@
         4.5
       ],
       "cooldown": 80,
-      "telegraph": 10,
+      "telegraph": 8,
       "damage": 14,
       "count": 3,
-      "duration": 20
+      "duration": 26
     },
     "rune_trap": {
       "weight": 3,
@@ -80,6 +80,86 @@
       "damage": 4,
       "duration": 80,
       "turn_speed": 2.0
+    },
+    "ground_slam": {
+      "weight": 3,
+      "range": [
+        3,
+        14
+      ],
+      "cooldown": 200,
+      "telegraph": 12,
+      "damage": 12,
+      "radius": 12,
+      "duration": 40
+    },
+    "rune_blades": {
+      "weight": 3,
+      "range": [
+        4,
+        26
+      ],
+      "cooldown": 220,
+      "telegraph": 10,
+      "damage": 8,
+      "count": 5,
+      "duration": 60
+    },
+    "whirlwind": {
+      "weight": 2,
+      "range": [
+        0,
+        6
+      ],
+      "cooldown": 260,
+      "telegraph": 12,
+      "damage": 5,
+      "radius": 6,
+      "duration": 40
+    },
+    "starfall_cross": {
+      "weight": 3,
+      "range": [
+        0,
+        30
+      ],
+      "cooldown": 260,
+      "telegraph": 15,
+      "damage": 10,
+      "radius": 1.4,
+      "count": 10,
+      "duration": 40
+    },
+    "gravity_well": {
+      "weight": 2,
+      "range": [
+        0,
+        30
+      ],
+      "cooldown": 400,
+      "telegraph": 15,
+      "damage": 14,
+      "radius": 8,
+      "duration": 60
+    },
+    "judgement_rain": {
+      "weight": 3,
+      "range": [
+        0,
+        40
+      ],
+      "cooldown": 300,
+      "telegraph": 10,
+      "damage": 10,
+      "radius": 2,
+      "count": 3,
+      "duration": 75
     }
+  },
+  "intro_ticks": 140,
+  "enrage": {
+    "threshold": 0.15,
+    "cooldown_multiplier": 0.6,
+    "arena_radius": 22
   }
 }
