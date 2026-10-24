@@ -61,11 +61,13 @@ public final class ClientModEvents {
         event.register(KeyBindings.CAST);
         event.register(KeyBindings.CYCLE);
         event.register(KeyBindings.GRIMOIRE);
+        event.register(KeyBindings.JOURNAL);
     }
 
     @SubscribeEvent
     public static void registerOverlays(RegisterGuiOverlaysEvent event) {
         event.registerAboveAll("mana_hud", ManaHudOverlay.INSTANCE);
+        event.registerAboveAll("quest_tracker", com.aetheria.astralruin.client.gui.QuestTrackerOverlay.INSTANCE);
         event.registerAboveAll("cinematic", com.aetheria.astralruin.client.cinematic.CinematicManager.OVERLAY);
     }
 

@@ -90,18 +90,7 @@ public final class CinematicManager {
                 }
                 key(120, eye, lookEnd);
             }
-            case ADVENTURE -> {
-                // b = position du joueur ; d = direction de son regard a plat
-                Vec3 f = Vec3.directionFromRotation(0, mc.player.getYRot());
-                Vec3 side = new Vec3(-f.z, 0, f.x);
-                key(0, b.add(0, 45, 0).subtract(f.scale(20)), b.add(f.scale(60)).add(0, 10, 0));
-                key(70, b.add(0, 30, 0).add(side.scale(25)), b);
-                key(140, b.add(0, 14, 0).subtract(side.scale(22)).add(f.scale(10)), b.add(0, 1, 0));
-                key(210, b.add(0, 6, 0).subtract(f.scale(10)).add(side.scale(6)), b.add(0, 1.5, 0));
-                key(280, b.add(f.scale(3.5)).add(0, 1.9, 0), b.add(0, 1.6, 0));
-                key(330, b.add(f.scale(3.6)).add(0, 1.9, 0), b.add(0, 1.6, 0));
-                key(360, eye, lookEnd);
-            }
+            case ADVENTURE -> StoryCinematic.start(mc);
             case DEATH -> {
                 key(0, eye, up2);
                 key(20, b.add(d.scale(7)).add(0, 2.5, 0), b.add(0, 2.5, 0));
@@ -113,7 +102,7 @@ public final class CinematicManager {
         }
         type = t;
         tick = 0;
-        length = KEYS.get(KEYS.size() - 1).time();
+        length = t == CinematicS2C.Type.ADVENTURE ? StoryCinematic.LENGTH : KEYS.get(KEYS.size() - 1).time();
         bossId = entityId;
         camera = new CinematicCameraEntity(ModEntities.CINEMATIC_CAMERA.get(), mc.level);
         apply(0, true);
@@ -152,10 +141,27 @@ public final class CinematicManager {
             return;
         }
         apply(tick, false);
+        if (type == CinematicS2C.Type.ADVENTURE) StoryCinematic.tick(tick);
+    }
+
+    /** Rendu du theatre de la cinematique d'histoire (appele par RenderLevelStageEvent). */
+    public static void renderStage(com.mojang.blaze3d.vertex.PoseStack pose, net.minecraft.client.renderer.MultiBufferSource.BufferSource buffers,
+                                   net.minecraft.client.Camera cam, float pt) {
+        if (type == CinematicS2C.Type.ADVENTURE) StoryCinematic.render(pose, buffers, cam, pt, tick);
     }
 
     private static void apply(int t, boolean snap) {
-        if (camera == null || KEYS.isEmpty()) return;
+        if (camera == null) return;
+        if (type == CinematicS2C.Type.ADVENTURE) {
+            StoryCinematic.Shot shot = StoryCinematic.shot(t);
+            Vec3 dir = shot.look().subtract(shot.pos());
+            double hz = Math.sqrt(dir.x * dir.x + dir.z * dir.z);
+            camera.moveTo(shot.pos().x, shot.pos().y, shot.pos().z,
+                    (float) (Mth.atan2(-dir.x, dir.z) * (180.0 / Math.PI)), (float) (-Mth.atan2(dir.y, hz) * (180.0 / Math.PI)),
+                    snap || shot.cut());
+            return;
+        }
+        if (KEYS.isEmpty()) return;
         int i = 0;
         while (i < KEYS.size() - 2 && KEYS.get(i + 1).time() <= t) i++;
         Key k1 = KEYS.get(i), k2 = KEYS.get(Math.min(i + 1, KEYS.size() - 1));
@@ -189,6 +195,7 @@ public final class CinematicManager {
         if (mc.player != null) mc.setCameraEntity(mc.player);
         if (previousCameraType != null) mc.options.setCameraType(previousCameraType);
         previousCameraType = null;
+        StoryCinematic.stop();
         camera = null;
         type = null;
         KEYS.clear();
@@ -212,28 +219,7 @@ public final class CinematicManager {
             case PHASE_TWO -> { title = Component.translatable("cinematic.aetheria.phase2.title"); subtitle = Component.translatable("cinematic.aetheria.phase2.subtitle"); from = 70; to = 116; }
             case DEATH -> { title = Component.translatable("cinematic.aetheria.death.title"); subtitle = Component.translatable("cinematic.aetheria.death.subtitle"); from = 70; to = 108; }
         }
-        if (type == CinematicS2C.Type.ADVENTURE) {
-            title = Component.translatable("cinematic.aetheria.adventure.title");
-            subtitle = Component.translatable("cinematic.aetheria.adventure.subtitle");
-            from = 282; to = 356;
-            int[][] lines = {{18, 80}, {84, 146}, {150, 212}, {216, 276}};
-            for (int i = 0; i < lines.length; i++) {
-                if (t > lines[i][0] && t < lines[i][1]) {
-                    float a = Mth.clamp(Math.min((t - lines[i][0]) / 10F, (lines[i][1] - t) / 10F), 0F, 1F);
-                    int alpha = Math.max(8, (int) (a * 255)) << 24;
-                    g.pose().pushPose();
-                    g.pose().translate(w / 2F, h - bh - 30, 0);
-                    g.pose().scale(1.35F, 1.35F, 1F);
-                    g.drawCenteredString(mc.font, Component.translatable("cinematic.aetheria.adventure.line" + (i + 1)), 0, 0, alpha | 0xE9DCFF);
-                    g.pose().popPose();
-                }
-            }
-            if (t > 300 && t < 356) {
-                float a = Mth.clamp(Math.min((t - 300) / 10F, (356 - t) / 10F), 0F, 1F);
-                int alpha = Math.max(8, (int) (a * 255)) << 24;
-                g.drawCenteredString(mc.font, Component.translatable("cinematic.aetheria.adventure.objective"), w / 2, h - bh - 26, alpha | 0xFFD36B);
-            }
-        }
+        if (type == CinematicS2C.Type.ADVENTURE) StoryCinematic.overlay(g, mc.font, w, h, t, bh);
         if (title != null && t > from && t < to) {
             float a = Mth.clamp(Math.min((t - from) / 10F, (to - t) / 10F), 0F, 1F);
             int alpha = Math.max(8, (int) (a * 255)) << 24;

@@ -168,6 +168,12 @@ public class ValeriusEntity extends Monster implements GeoEntity {
     }
 
     public int getPhase() { return entityData.get(PHASE); }
+
+    /** Cinematique d'histoire (client) : force l'etat d'animation d'une instance de decor. */
+    public void setCinematicState(boolean intro, int phase) {
+        entityData.set(INTRO, intro);
+        entityData.set(PHASE, phase);
+    }
     public boolean isIntro() { return entityData.get(INTRO); }
     public boolean isTransitioning() { return entityData.get(TRANSITIONING); }
     public boolean isEnraged() { return entityData.get(ENRAGED); }

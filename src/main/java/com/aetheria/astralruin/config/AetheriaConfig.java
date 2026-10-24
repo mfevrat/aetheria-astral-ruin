@@ -17,6 +17,7 @@ public final class AetheriaConfig {
     public static final ForgeConfigSpec.BooleanValue RENDER_DECALS;
     public static final ForgeConfigSpec.BooleanValue BOSS_MUSIC;
     public static final ForgeConfigSpec.BooleanValue CINEMATICS;
+    public static final ForgeConfigSpec.BooleanValue QUEST_TRACKER;
 
     static {
         ForgeConfigSpec.Builder common = new ForgeConfigSpec.Builder();
@@ -53,6 +54,8 @@ public final class AetheriaConfig {
                 .define("bossMusic", true);
         CINEMATICS = client.comment("Jouer les cinematiques de Valerius (apparition, phase 2, mort).")
                 .define("bossCinematics", true);
+        QUEST_TRACKER = client.comment("Afficher l'etape d'aventure en cours en haut a gauche de l'ecran.")
+                .define("questTracker", true);
         client.pop();
         CLIENT_SPEC = client.build();
     }

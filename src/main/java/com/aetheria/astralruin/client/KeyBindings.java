@@ -15,5 +15,8 @@ public final class KeyBindings {
     public static final KeyMapping GRIMOIRE = new KeyMapping("key.aetheria.grimoire", KeyConflictContext.IN_GAME,
             InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_G, CATEGORY);
 
+    public static final KeyMapping JOURNAL = new KeyMapping("key.aetheria.journal", KeyConflictContext.IN_GAME,
+            InputConstants.Type.KEYSYM, GLFW.GLFW_KEY_J, CATEGORY);
+
     private KeyBindings() {}
 }

@@ -104,7 +104,7 @@ public final class ManaEvents {
         });
     }
 
-    public static final int ADVENTURE_INTRO_TICKS = 360;
+    public static final int ADVENTURE_INTRO_TICKS = 840;
 
     /** Lance la cinematique d'introduction (joueur protege pendant sa duree). */
     public static void playAdventureIntro(ServerPlayer player) {
@@ -118,6 +118,11 @@ public final class ManaEvents {
         ManaCapability.get(player).ifPresent(data -> {
             ManaCapability.backup(player, data);
             var tag = data.toSyncTag(player);
+            var quests = new net.minecraft.nbt.ListTag();
+            for (String id : com.aetheria.astralruin.quest.AdventureQuests.completed(player)) {
+                quests.add(net.minecraft.nbt.StringTag.valueOf(id));
+            }
+            tag.put("questsDone", quests);
             data.load(tag); // met a jour syncedMax cote serveur aussi
             data.clearDirty();
             ModNetwork.sendToPlayer(player, new ManaSyncS2C(tag));

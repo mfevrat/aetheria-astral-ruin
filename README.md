@@ -1,4 +1,4 @@
-# Aetheria: Astral Ruin — v2.2.0
+# Aetheria: Astral Ruin — v2.4.0
 
 Mod Forge pour **Minecraft 1.20.4** (Forge 49.x) avec **GeckoLib 4.4.4**.
 Magie cinématique à cercles runiques, trois sorts, équipement astral, un boss en deux phases et deux structures générées.
@@ -9,10 +9,10 @@ Prérequis : JDK 17 et une connexion Internet (Gradle télécharge Forge, Minecr
 
 ```bash
 ./gradlew runClient     # lance le jeu de développement (Windows : gradlew.bat runClient)
-./gradlew build         # produit build/libs/aetheria-2.2.0.jar
+./gradlew build         # produit build/libs/aetheria-2.4.0.jar
 ```
 
-Pour jouer avec le jar : installe Forge 1.20.4 (49.0.27 ou plus) et **GeckoLib 4.4.4 pour Forge 1.20.4**, puis copie `aetheria-2.2.0.jar` dans `mods/`.
+Pour jouer avec le jar : installe Forge 1.20.4 (49.0.27 ou plus) et **GeckoLib 4.4.4 pour Forge 1.20.4**, puis copie `aetheria-2.4.0.jar` dans `mods/`.
 
 Dans IntelliJ IDEA : *Open* → choisis `build.gradle` → *Open as Project*, attends l’import, puis lance la configuration `runClient`.
 
@@ -20,18 +20,29 @@ Dans IntelliJ IDEA : *Open* → choisis `build.gradle` → *Open as Project*, at
 
 ## Mods à installer pour l’aventure complète
 
-Tous en version **Minecraft 1.20.4, Forge**.
+Tous en version **Minecraft 1.20.4, Forge**. Seuls trois éléments sont nécessaires :
 
 | Mod | Rôle | Obligatoire |
 | --- | --- | --- |
 | Forge 49.x (49.0.27 ou plus) | Chargeur de mods | Oui |
 | GeckoLib 4 (`geckolib-forge-1.20.4-4.4.4` ou plus) | Modèles et animations 3D | Oui |
-| Aetheria: Astral Ruin | Le mod | Oui |
-| FTB Quests | Livre de quêtes (chapitre fourni dans `extras/ftbquests/`) | Non |
-| FTB Library, FTB Teams, Architectury API | Dépendances de FTB Quests | Seulement avec FTB Quests |
+| Aetheria: Astral Ruin | Le mod, journal de quêtes inclus | Oui |
 | Just Enough Items (JEI) | Voir les recettes en jeu | Non, mais conseillé |
 
-Sans FTB Quests, l’aventure se suit déjà grâce aux advancements (touche L) et à la cinématique d’introduction.
+Aucun mod de quêtes externe n’est nécessaire : le **Journal d’Aventure** est intégré.
+
+## Journal d’Aventure
+
+La touche **J** ouvre le journal. Il liste les 6 étapes de l’aventure, chacune avec sa description, ses indices concrets (recettes, emplacement, astuces de combat) et ses récompenses. Un suivi en haut à gauche de l’écran rappelle l’étape en cours ; l’option `questTracker` de la config client permet de le masquer.
+
+1. **L’Éveil des Runes** : trouver un Fragment de Stèle dans les Ruines Englouties.
+2. **Le Bâton de l’Archi-Mage** : fabriquer le premier focus.
+3. **La Voie de l’Invocateur** : débloquer des sorts et en lancer trois différents.
+4. **Le Sceau Astral** : localiser l’Observatoire et fabriquer le Sceau.
+5. **L’Épreuve du Gardien** : vaincre Valerius.
+6. **L’Éveil des Armes** : forger une arme Éveillée.
+
+Chaque étape est validée par un advancement du mod (visible aussi avec la touche L).
 
 ## Compiler sur GitHub (sans rien installer)
 
@@ -138,15 +149,19 @@ Les projectiles (cristaux de Runework Nova, lames d’éclipse) et les orbes de 
 
 Les fichiers sont dans `assets/aetheria/geo/`, `animations/` et `textures/geo/` (avec un `_glowmask.png` pour les parties lumineuses). Chaque modèle joue l’animation `animation.aetheria.idle` : tu peux tout retravailler dans Blockbench (plugin GeckoLib) sans toucher au Java, tant que ce nom d’animation est conservé.
 
-## Cinématique d’introduction
+## Cinématique d’introduction : l’histoire mise en scène
 
-À sa première arrivée dans le monde, chaque joueur assiste à une introduction d’environ 18 secondes :
-- une caméra qui part du ciel, survole les environs et se pose face au joueur ;
-- un récit en quatre lignes (la pluie d’étoiles, les runes, le gardien Valerius, sa chute) ;
-- le titre AETHERIA et le premier objectif ;
-- une musique d’ouverture.
+À sa première arrivée dans le monde, chaque joueur assiste à un court-métrage d’environ 42 secondes. Il est joué dans un théâtre dessiné côté client très haut dans le ciel (dôme de nébuleuse et sol gravé de runes), sans jamais modifier le monde.
 
-Le joueur est protégé pendant la séquence, et la touche *Sauter* permet de la passer. La commande `/aetheria intro` la rejoue. Elle se désactive pour tous avec `adventureIntro` (config commune) ou pour soi avec `bossCinematics` (config client).
+1. **La pluie d’étoiles** : des dizaines d’étoiles filantes s’écrasent, puis une étoile géante frappe le centre dans un pilier de lumière.
+2. **La naissance de la magie** : des cristaux flottent et s’éveillent, et des cercles runiques s’assemblent un à un.
+3. **La forge du gardien** : trois Anciens en armure Astrale canalisent leurs rayons ; Valerius se relève et rugit.
+4. **La chute** : le ciel vire au rouge, Valerius déploie ses ailes, la foudre frappe les Anciens et l’éclipse dévore tout.
+5. **Le retour au monde** : flash blanc, la caméra redescend vers le joueur, titre AETHERIA et premier objectif.
+
+Les acteurs sont les vrais modèles animés du mod. La séquence comprend des coupes en fondu, des secousses, des sons, une narration et une musique de 42 s calée sur chaque scène.
+
+Le joueur est protégé pendant toute la séquence, et la touche *Sauter* permet de la passer. La commande `/aetheria intro` la rejoue. Elle se désactive pour tous avec `adventureIntro` (config commune) ou pour soi avec `bossCinematics` (config client).
 
 ## Combat et effets (v2)
 
@@ -251,11 +266,9 @@ src/main/resources/
   assets/aetheria/         lang FR/EN, modèles, textures, geo + animations, sons OGG
   data/aetheria/           recettes, loot tables, advancements, tags, worldgen, structures NBT,
                            skill_nodes/ (arbre runique), bosses/valerius.json
-extras/ftbquests/          chapitre FTB Quests optionnel
 ```
 
 ## Limites connues de la v0.3
 
 - **Placement en main à ajuster** : les transformations d’affichage reprennent celles des objets vanilla (tenu en main, objet standard, bouclier, bloc), mais n’ont pas été vérifiées en jeu. Si un objet est mal orienté ou mal dimensionné, corrige la section `display` de `models/item/<objet>.json`, ou règle-la visuellement dans l’onglet *Display* de Blockbench.
 - **Art provisoire** : modèles, textures, sons et musique sont générés procéduralement, à sculpter dans Blockbench pour un rendu final.
-- **Chapitre FTB Quests** : fourni dans `extras/`, non testé en jeu.

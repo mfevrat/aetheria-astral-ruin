@@ -26,6 +26,8 @@ public class ManaData {
     private float bonusMaxMana;
     private boolean rampartReceived;
     private boolean introSeen;
+    /** Etapes d'aventure terminees : calculees par le serveur, utilisees cote client seulement. */
+    private final Set<String> questsDone = new HashSet<>();
     /** Valeur synchronisee pour le client (le client ne calcule pas les attributs des autres sources). */
     private float syncedMaxMana = 100;
     private boolean dirty = true;
@@ -158,6 +160,8 @@ public class ManaData {
         dirty = true;
     }
 
+    public boolean isQuestDone(String id) { return questsDone.contains(id); }
+
     public boolean hasSeenIntro() { return introSeen; }
     public void markIntroSeen() { introSeen = true; }
 
@@ -212,6 +216,10 @@ public class ManaData {
         rampartReceived = tag.getBoolean("rampart");
         introSeen = tag.getBoolean("introSeen");
         if (tag.contains("syncedMax")) syncedMaxMana = tag.getFloat("syncedMax");
+        if (tag.contains("questsDone")) {
+            questsDone.clear();
+            tag.getList("questsDone", Tag.TAG_STRING).forEach(t -> questsDone.add(t.getAsString()));
+        }
         dirty = true;
     }
 

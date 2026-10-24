@@ -34,6 +34,7 @@ public final class ClientForgeEvents {
             while (KeyBindings.CAST.consumeClick()) ModNetwork.sendToServer(new CastSpellC2S());
             while (KeyBindings.CYCLE.consumeClick()) ModNetwork.sendToServer(new CycleSpellC2S(mc.player.isShiftKeyDown() ? -1 : 1));
             while (KeyBindings.GRIMOIRE.consumeClick()) ClientHooks.openGrimoire();
+            while (KeyBindings.JOURNAL.consumeClick()) mc.setScreen(new com.aetheria.astralruin.client.gui.AdventureJournalScreen());
         }
     }
 
@@ -42,6 +43,7 @@ public final class ClientForgeEvents {
     public static void onRenderLevel(RenderLevelStageEvent event) {
         if (event.getStage() != RenderLevelStageEvent.Stage.AFTER_PARTICLES) return;
         MultiBufferSource.BufferSource buffers = Minecraft.getInstance().renderBuffers().bufferSource();
+        com.aetheria.astralruin.client.cinematic.CinematicManager.renderStage(event.getPoseStack(), buffers, event.getCamera(), event.getPartialTick());
         RuneCircleManager.render(event.getPoseStack(), buffers, event.getCamera().getPosition(), event.getPartialTick());
         com.aetheria.astralruin.client.vfx.VfxManager.render(event.getPoseStack(), buffers, event.getCamera(), event.getPartialTick());
         buffers.endBatch();

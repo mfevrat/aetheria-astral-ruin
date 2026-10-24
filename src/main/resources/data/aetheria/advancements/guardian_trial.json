@@ -1,5 +1,5 @@
 {
-  "parent": "aetheria:invoker",
+  "parent": "aetheria:sigil",
   "display": {
     "icon": {
       "item": "aetheria:rune_heart"

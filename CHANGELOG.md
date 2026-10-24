@@ -1,5 +1,24 @@
 # Changelog
 
+## 2.4.0 — l’histoire mise en scène
+- **Nouvelle cinématique d’introduction** : un vrai court-métrage en cinq scènes (≈ 42 s) au lieu d’un survol de caméra :
+  - la pluie d’étoiles et l’impact de l’étoile géante ;
+  - la naissance de la magie (cristaux, cercles runiques) ;
+  - la forge du gardien (trois Anciens en armure Astrale, Valerius qui se relève et rugit) ;
+  - sa chute (ciel rouge, ailes, foudre, éclipse) ;
+  - le retour au monde avec le titre.
+- **Théâtre côté client**, sans modifier le monde : dôme de nébuleuse peint (2048×1024) et sol gravé de runes, dessinés haut dans le ciel.
+- **Acteurs** : les vrais modèles animés du mod (Valerius et ses animations d’apparition, de lévitation et de rage ; armor stands en armure Astrale tenant le bâton).
+- **Mise en scène** : 21 plans de caméra avec coupes en fondu au noir, flash blanc, secousses, effets visuels, sons et narration.
+- **Musique** d’ouverture recomposée sur 42 s, synchronisée au tick près avec les temps forts.
+
+## 2.3.0 — Journal d’Aventure intégré
+- **Journal d’Aventure** (touche J) : les 6 étapes de l’aventure, chacune avec description, indices concrets (recettes, emplacement, conseils de combat) et récompenses. Une étape n’est révélée qu’une fois la précédente accomplie.
+- **Suivi de quête à l’écran** (en haut à gauche), désactivable avec l’option client `questTracker`.
+- Deux nouvelles étapes et advancements : *Le Bâton de l’Archi-Mage* et *Le Sceau Astral*. Nouvel ordre : Éveil → Bâton → Invocateur → Sceau → Gardien → Armes Éveillées.
+- Retrait du chapitre FTB Quests : FTB Quests n’est pas disponible pour Forge en 1.20.4. L’aventure ne dépend plus d’aucun mod de quêtes.
+- La cinématique d’introduction mentionne désormais le journal.
+
 ## 2.2.0 — introduction de l’aventure
 - **Cinématique d’introduction** à la première connexion de chaque joueur (≈ 18 s) :
   - caméra en six plans, du ciel jusqu’au joueur ;

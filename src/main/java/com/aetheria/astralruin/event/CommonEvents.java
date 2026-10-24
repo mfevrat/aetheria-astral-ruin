@@ -133,6 +133,7 @@ public final class CommonEvents {
                     data.setTitleKey("title.aetheria.guardian");
                 }
                 default -> {
+                    ManaEvents.sync(sp); // met a jour le Journal d'Aventure
                     return;
                 }
             }
